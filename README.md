@@ -16,7 +16,7 @@ As of now game is still in development, so sadly you can't.
 ## Technologies:
 Backend: Java 21, Spring Boot (3.4.0)\
 Frontend: HTML, JS, CSS\
-(Terrible at frontend btw)
+(Terrible at frontend btw)https://github.com/kuropatva/thatsall.git√
 
 ## Design choices:
-[PRESENTATION](raports/PRESENTATION.md)
+[PRESENTATION](reports/PRESENTATION.md)
