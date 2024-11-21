@@ -1,0 +1,337 @@
+@startuml
+
+package controller  {
+    class GameSocketHandler {
+        - lobby : Lobby
+        + GameSocketHandler(lobby : Lobby)
+        + handle(player : Player, message : String) : void
+    }
+
+    abstract class WebsocketCommand {
+        + run(args : CommandArgs) : void
+    }
+
+    class PlayCommand extends WebsocketCommand {
+        + run(args : CommandArgs) : void
+    }
+
+    class RefreshCommand extends WebsocketCommand {
+        + run(args : CommandArgs) : void
+    }
+
+    class CommandArgs {
+        - lobby : Lobby
+        - player : Player
+        - commandName : String
+        - args : Map<String, String>
+        + CommandArgs(Lobby, Player, String)
+        + getGame() : Lobby
+        + getPlayer() : Player
+        + getCommandName() : String
+        + getKeys() : Set<String>
+        + hasKey(key : String) : boolean
+        + getValue(key : String) : String
+    }
+
+}
+
+package view {
+    class PlayerViewData {
+        + {static} get(args : CommandArgs) : String
+    }
+}
+
+package web {
+    package server {
+        class GameController {
+            Spring method for game page
+        }
+
+        class LoginController {
+            Spring method for login page
+        }
+
+    }
+
+    package socket {
+        class AuthHandshakeInterceptor {
+            Spring method to auth user before handshake
+        }
+
+        class WebSocketConfig {
+            Spring method to register WebSocketHandler
+        }
+
+        class WebSocketHandler {
+            TextWebSocketHandler implementation
+        }
+    }
+
+    class Auth {
+        + authorize(gameID : String, username : String, passcode : String) : boolean
+        + authorize(lobby : Lobby, username : String, passcode : String) : boolean
+    }
+}
+
+package model {
+    package player {
+        class Player {
+            - playerCredentials : PlayerCredentials
+            - gamePlayer : GamePlayer
+            - lobby : Lobby
+            - sessions : LinkedList<WebSocketSession>
+
+            + Player(playerCredentials : PlayerCredentials)
+            + setLobby() : Lobby
+            + setLobby(lobby : Lobby)
+            + username() : String
+            + authorize(passcode : String) : boolean
+            + addSession(session : WebSocketSession)
+            + removeSession(session : WebSocketSession)
+            + gamePlayer() : GamePlayer
+            + clearSessions() : void
+            + sendMessage(String message) : void
+        }
+
+        class PlayerCredentials {
+            - password : String
+            - username : String
+            + auth(String password, String username) : boolean
+
+        }
+
+        class GamePlayer {
+            - points : int
+            - playerHand : GamePlayerHand
+            + playerHand() : GamePlayerHand
+            + addPoints(i : int) : void
+            + points() : int
+            - removePoints(i : int) : void
+
+        }
+
+        class GamePlayerHand {
+            - powerCards : LinkedList<Card>
+            - valueCards : LinkedList<Integer>
+            + add(c : Card) : void
+            + add(i : int) : void
+            + remove(c : Card) : void
+            + remove(i : int) : void
+            + getValue(i : int) : Optional<Integer>
+            + getPower(i : int) : Optional<Card>
+            + powerCards() : LinkedList<Card>
+            + valueCards() : LinkedList<Integer>
+        }
+    }
+
+
+
+    package lobby {
+        class Lobby {
+            - players : HashMap<String, Player>
+            - password : String
+            - gameSocketHandler : GameSocketHandler
+            - game : Game
+            - creationDate : Date
+
+            + setPassword(password : String) : void
+            + authorize(password : String) : boolean
+            + hasPlayerName(username : String) : boolean
+            + playerSize() : int
+            + getPlayer(username : String) : Player
+            + addPlayer(player : Player) : void
+            + players() : Iterable<Player>
+            + getGameSocketHandler() : GameSocketHandler
+            + disband() : void
+            + game() : Game
+            + getCreationDate() : Date
+        }
+
+        class LobbyIDGenerator {
+            - {static} freeID : int
+            - LobbyIDGenerator()
+            + {static} get() : int
+        }
+
+        class LobbyManager {
+            - gameList : HashMap<String, Lobby> {static}
+            - LobbyManager()
+            + {static} get() : Lobby
+            + newGame(gameID : String) : Lobby
+            + game(gameID : String) : Lobby
+            + disband(lobby : Lobby) : void
+
+            + deleteAbandoned() : void
+        }
+    }
+
+    package game {
+        class Game {
+            - eventRegister : EventRegister
+            - powerCards : Deck<Card>
+            - valueCards : Deck<Integer>
+            - state : State
+            + start() : void
+            + ready(player : Player) : void
+            - endRound() : void
+            - dealHands() : void
+            + powerCards : Deck<Card>
+            + valueCard : Deck<Integer>
+            + state() : State
+        }
+
+        class Deck<T> {
+            - LinkedList<T> list;
+            + add(c : T) : void
+            + remove(c : T) : T
+            + removeRandom() : T
+            + getRandom() : T
+            + shuffle() :  void
+        }
+    }
+
+    package events {
+
+        () model
+
+        package values {
+
+            abstract class EventValueType<t> {
+                + {abstract} get() : T
+                + {abstract} store(T t) : void
+            }
+            class EventInt implements EventValueType<Integer> {
+                + get() : Integer
+                + store(Integer t) : void
+            }
+            class EventString implements EventValueType<String> {
+                + get() : String
+                + store(Integer t) : void
+            }
+        }
+        class Event {
+            - executor : Player
+            - game : Game
+            - values : HashMap<String, EventValueType<?>>
+
+            + Event(eventBuilder : EventBuilder)
+            + getValue(key : String) : EventValueType<?>
+            + setValue(key : String, value : EventValueType<?>) : void
+            + getPlayer() : Player
+            + getGame() : Game
+        }
+
+        class EventBuilder {
+            - player : Player
+            - game : Game
+            - values : HashMap<String, EventValueType<?>>
+
+            - EventBuilder()
+            + player(player : Player) : EventBuilder
+            + game(game : Game) : EventBuilder
+            + addInt(name : String, value : int) : EventBuilder
+            + addString(name : String, value : String) : EventBuilder
+            + build() : Event
+            + getPlayer() : Player
+            + getGame() : Game
+            + getValues() : HashMap<String, EventValueType<?>>
+            + static get() : EventBuilder
+        }
+
+        class EventRegister {
+            - map : EnumMap<EventType, LinkedList<Function<Event, Boolean>>>
+
+            + trigger(eventType : EventType, event : Event) : Event
+            + register(listener : EventListener, eventType : EventType...) : void
+        }
+
+        enum EventType {
+            ON_LOSE
+            ON_WIN
+            ON_DRAW
+            ON_CARD_USE
+            ON_CARD_GET
+            ON_ROUND_END
+            ON_ROUND_START
+            ...
+        }
+
+        interface EventListener {
+            + trigger (event : Event) : boolean
+        }
+    }
+
+    package cards {
+        abstract class Card {
+            + trigger (event : Event) : boolean
+            {abstract} getID() : int
+            {abstract} getEventType() : EvenType
+        }
+
+        class ExampleCard implements Card {
+             - {static} eventType : EvenType
+             - {static} ID : int
+             + trigger (event : Event) : boolean
+             + getID() : int
+             + getEventType() : EvenType
+        }
+    }
+}
+
+package config {
+    class FullCardList {
+        + {static} get() : ...
+        To be designed (hardcode or from list using reflection API)
+
+    }
+    class Config {
+        Might be redundant
+    }
+
+    circle model
+}
+
+EventBuilder --> "*" EventValueType : contains
+EventRegister --> EventType : registers listeners for events
+EventRegister --> Event : event parameters
+EventBuilder --> Event : produces
+EventRegister o- EventListener : triggers
+
+Card -|> EventListener
+Player *- PlayerCredentials
+Player *- GamePlayer
+GamePlayer *- GamePlayerHand
+
+WebSocketHandler -> Player : adds and removes sessions
+WebSocketHandler -> GameSocketHandler : delegates message handling
+
+GameSocketHandler -> WebsocketCommand : triggers
+GameSocketHandler -> CommandArgs : creates
+CommandArgs -> WebsocketCommand : is passed to
+
+AuthHandshakeInterceptor -> Auth : uses
+GameController -> Auth : uses
+LoginController -> Auth : uses
+
+LobbyManager *-> Lobby : creates and stores
+LobbyManager --> LobbyIDGenerator : uses to get new id
+
+Lobby *-* Game
+Game *- EventRegister
+Lobby o- Player : contains
+model.events.model --> EventRegister : calls with EvenType and created Event
+EventRegister --> model.events.model : responds with modified Event
+model.events.model --> EventBuilder : uses
+
+Card *- GamePlayerHand : stores
+Card *- Deck : stores
+Game *- Deck : Deck<Integer>, Deck<Card>
+
+LobbyManager --> Lobby : deletes lobbies older than 1 hour
+RefreshCommand <-> PlayerViewData : Uses to get information
+config.model --> Config : Gets information about constants
+Game --> FullCardList : Uses to construct Deck<Card>
+
+LoginController --> LobbyManager : Interacts to create new games
+Auth --> LobbyManager : Uses to verify player
+@enduml
