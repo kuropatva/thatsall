@@ -20,4 +20,3 @@ Frontend: HTML, JS, CSS\
 
 ## Design choices:
 [PRESENTATION](raports/PRESENTATION.md)
-
