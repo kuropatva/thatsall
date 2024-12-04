@@ -1,3 +1,11 @@
-// LobbyIDGenerator.java
-// Package: model.lobby
-// TODO: Implement the LobbyIDGenerator class.
+package me.kuropatva.thatsall.model.lobby;
+
+public class LobbyIDGenerator {
+
+    private static int i = 0;
+
+    public static String get() {
+        return String.valueOf(i++);
+    }
+
+}

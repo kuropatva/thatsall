@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 public class Event {
 
-    private Player executor;
-    private Game game;
-    private HashMap<String, EventValueType<?>> values;
+    private final Player executor;
+    private final Game game;
+    private final HashMap<String, EventValueType<?>> values;
 
     public Event(EventBuilder eventBuilder) {
         this.executor = eventBuilder.getPlayer();

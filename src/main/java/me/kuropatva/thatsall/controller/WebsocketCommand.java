@@ -1,3 +1,4 @@
-// WebsocketCommand.java
-// Package: controller
-// TODO: Implement the WebsocketCommand class.
+package me.kuropatva.thatsall.controller;
+
+public interface WebsocketCommand {
+}

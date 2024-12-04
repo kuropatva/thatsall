@@ -1,4 +1,4 @@
-package me.kuropatva.thatsall.model.player;
+package me.kuropatva.thatsall.player;
 
 import me.kuropatva.thatsall.model.lobby.Lobby;
 import org.springframework.web.socket.TextMessage;
