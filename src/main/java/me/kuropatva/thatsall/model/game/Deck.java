@@ -1,3 +1,5 @@
-// Deck.java
-// Package: model.game
-// TODO: Implement the Deck class.
+package me.kuropatva.thatsall.model.game;
+
+public class Deck {
+
+}

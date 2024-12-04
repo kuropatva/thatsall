@@ -1,3 +1,5 @@
-// EventListener.java
-// Package: model.events
-// TODO: Implement the EventListener class.
+package me.kuropatva.thatsall.model.events;
+
+public interface EventListener {
+    boolean trigger(Event event);
+}

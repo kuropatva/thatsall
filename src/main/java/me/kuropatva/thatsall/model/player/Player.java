@@ -1,3 +1,5 @@
-// Player.java
-// Package: model.player
-// TODO: Implement the Player class.
+package me.kuropatva.thatsall.model.player;
+
+public class Player {
+    
+}

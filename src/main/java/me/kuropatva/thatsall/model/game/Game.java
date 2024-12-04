@@ -1,3 +1,5 @@
-// Game.java
-// Package: model.game
-// TODO: Implement the Game class.
+package me.kuropatva.thatsall.model.game;
+
+public class Game {
+
+}
