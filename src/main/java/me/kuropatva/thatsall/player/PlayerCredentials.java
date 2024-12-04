@@ -1,4 +1,4 @@
-package me.kuropatva.thatsall.model.player;
+package me.kuropatva.thatsall.player;
 
 import java.util.Objects;
 

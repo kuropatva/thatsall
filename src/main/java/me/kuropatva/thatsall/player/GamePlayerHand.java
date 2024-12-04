@@ -1,4 +1,4 @@
-package me.kuropatva.thatsall.model.player;
+package me.kuropatva.thatsall.player;
 
 import me.kuropatva.thatsall.model.cards.Card;
 
@@ -33,5 +33,4 @@ public class GamePlayerHand {
     public Optional<Card> getPower(int id) {
         return powerCards.stream().filter(p -> p.getID() == id).findFirst();
     }
-
 }

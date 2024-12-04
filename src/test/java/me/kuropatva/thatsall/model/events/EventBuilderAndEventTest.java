@@ -11,8 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class EventBuilderAndEventTest {
     @Test
     public void eventBuilderAndObjectTest() {
-        var testGame = new Game();
-        var testPlayer = new Player();
+        var testGame = new Game(null);
+        var testPlayer = new Player(null);
         var event = EventBuilder.get().game(testGame).player(testPlayer)
                 .value("a", new EventInt(1)).value("b", new EventInt(2))
                 .value("c", new EventString("3")).value("d", new EventString("4"))
