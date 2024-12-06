@@ -18,5 +18,6 @@
 # Reflections
 - Writing basic tests (getter/setter like) is quite mundane, will probably look into automation (hi chatgpt)...
 - but tests for higher-level stuff aren't that bad
-- Calling test-implementation classes Sheeps (eg. ListenerSheep) makes it funnier
+- Calling test implementation classes Sheeps (eg. ListenerSheep) makes it funnier
 - Hitting sucesful tests and high/perfect coverge is surprisingly satisfying
+- TDD is challenging while coding something new experience-wise
