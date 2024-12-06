@@ -15,6 +15,7 @@ class EventRegisterTest {
         var sheep = new ListenerSheep();
 
         register.register(sheep, EventType.ON_WIN);
+        register.register(new ListenerSheep(), EventType.ON_WIN);
 
         var eventRemove = EventBuilder.get().value("int_remove", new EventInt(1)).build();
         var eventNoRemove = EventBuilder.get().value("int_remove", new EventInt(0)).build();
@@ -41,6 +42,17 @@ class EventRegisterTest {
         sheep.trigger(eventModify);
 
         assertEquals(2, eventModify.getValue("int_modify").get());
+    }
+
+    @Test
+    void setValue() {
+        var event = EventBuilder.get().value("int_remove", new EventInt(1)).build();
+        event.setValue("int_remove", new EventInt(5));
+        assertEquals(5, event.getValue("int_remove").get());
+        assertDoesNotThrow(() -> event.setValue(null, new EventInt(1)));
+        assertDoesNotThrow(() -> event.setValue("int_remove", null));
+        assertDoesNotThrow(() -> event.setValue("int_new", new EventInt(1)));
+        assertEquals(1, event.getValue("int_new").get());
     }
 
 }

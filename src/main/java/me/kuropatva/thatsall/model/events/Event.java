@@ -24,7 +24,7 @@ public class Event {
     }
 
     public void setValue(String key, EventValueType<?> value) {
-        values.replace(key, value);
+        values.put(key, value);
     }
 
     public Player getPlayer() {
