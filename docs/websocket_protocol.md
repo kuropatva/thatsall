@@ -6,7 +6,8 @@ Client updates only when stateHash is different
 `FNR [json]`
 ### Game finish (somebody won)
 `FNG [nickname]`
-
+### Error
+`ERR [message]`
 # Client initiated
 ### Update
 `UPT` \

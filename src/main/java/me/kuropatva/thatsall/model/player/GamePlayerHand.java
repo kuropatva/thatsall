@@ -23,7 +23,7 @@ public class GamePlayerHand {
     }
 
     public void remove(int c) {
-        valueCards.remove(c);
+        valueCards.remove((Integer) c);
     }
 
     public Optional<Integer> getValue(int id) {
