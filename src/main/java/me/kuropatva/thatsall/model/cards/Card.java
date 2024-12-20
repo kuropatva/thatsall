@@ -11,9 +11,7 @@ public abstract class Card implements EventListener {
     public abstract int getID();
 
     @Override
-    public boolean trigger(Event event) {
-        return false;
-    }
+    public abstract boolean trigger(Event event);
 
     public Player getOwner() {
         return player;
