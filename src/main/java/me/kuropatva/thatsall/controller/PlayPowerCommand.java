@@ -1,7 +1,7 @@
 package me.kuropatva.thatsall.controller;
 
-public class RefreshCommand extends WebsocketCommand {
-    @Override
+public class PlayPowerCommand extends WebsocketCommand {
     public void run(CommandArgs cmd) {
+
     }
 }

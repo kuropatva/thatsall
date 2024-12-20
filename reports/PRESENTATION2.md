@@ -1,4 +1,4 @@
-# Unit tests
+# ✨ Unit tests ✨
 - Started with least co-dependant parts: packages "events" and "lobby"
 - Others packages are more dependant on others and are still subject to redesigns, so will be covered as implementation goes forward
 - Using JUNIT for tests
