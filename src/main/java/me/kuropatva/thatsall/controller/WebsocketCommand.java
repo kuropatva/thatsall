@@ -1,4 +1,6 @@
 package me.kuropatva.thatsall.controller;
 
-public interface WebsocketCommand {
+public abstract class WebsocketCommand {
+
+    public abstract void run(CommandArgs args);
 }

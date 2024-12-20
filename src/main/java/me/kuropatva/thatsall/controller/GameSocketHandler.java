@@ -14,8 +14,9 @@ public class GameSocketHandler {
     public void handle(Player player, String message) {
         var cmd = new CommandArgs(lobby, player, message);
         switch (cmd.getCommandName()) {
-            case "UPDATE" -> RefreshCommand.run(cmd);
-            case "PLAY" -> PlayCommand.run(cmd);
+            case "UPT" -> new RefreshCommand().run(cmd);
+            case "PLP" -> new PlayPowerCommand().run(cmd);
+            case "PLV" -> new PlayValueCommand().run(cmd);
         }
     }
 }

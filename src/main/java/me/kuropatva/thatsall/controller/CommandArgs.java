@@ -38,7 +38,7 @@ public class CommandArgs {
         }
     }
 
-    public Lobby getGame() {
+    public Lobby lobby() {
         return lobby;
     }
 
