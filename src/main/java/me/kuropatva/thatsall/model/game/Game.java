@@ -131,8 +131,10 @@ public class Game {
             var gP = p.gamePlayer();
             for (int i = 0; i < PLAYER_POWER_CARDS; i++) {
                 if (valueCard.isEmpty()) shuffleValueCards();
-                gP.playerHand().add(takeValueCard());
                 gP.playerHand().add(takePowerCard());
+            }
+            for (int i = 0; i < PLAYER_VALUE_CARDS; i++) {
+                gP.playerHand().add(takeValueCard());
             }
         });
     }
