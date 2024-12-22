@@ -1,7 +1,8 @@
 package me.kuropatva.thatsall.model.game;
 
 import me.kuropatva.thatsall.model.cards.Card;
-import me.kuropatva.thatsall.model.events.EventBuilder;
+import me.kuropatva.thatsall.model.cards.RandomPowerCardGenerator;
+import me.kuropatva.thatsall.model.events.Event;
 import me.kuropatva.thatsall.model.events.EventRegister;
 import me.kuropatva.thatsall.model.events.EventType;
 import me.kuropatva.thatsall.model.events.values.EventInt;
@@ -54,7 +55,7 @@ public class Game {
         // resetting player ready counter
         resetReadiness();
         // trigger events
-        var event = EventBuilder.get().game(lobby.game())
+        var event = Event.builder().game(lobby.game())
                 .build();
         eventRegister().trigger(EventType.ON_ROUND_READY, event);
         // determining the winner
@@ -63,7 +64,7 @@ public class Game {
         // perform actions
         if (winner != null) {
             // events
-            var eventWin = EventBuilder.get().player(winner).game(this).value("INT_POINTS", new EventInt(2)).build();
+            var eventWin = Event.builder().player(winner).game(this).value("INT_POINTS", new EventInt(2)).build();
             eventRegister().trigger(EventType.ON_WIN, eventWin);
             // add point
             winner.gamePlayer().addPoints((int) eventWin.getValue("INT_POINTS").get());
@@ -72,7 +73,7 @@ public class Game {
             lobby.players().forEach(p -> {
                 if (p != winner) losers.add(p);
             });
-            var eventLose = EventBuilder.get().player(winner).game(this).value("PLAYERLIST_LOSERS", new EventPlayerList(losers)).build();
+            var eventLose = Event.builder().player(winner).game(this).value("PLAYERLIST_LOSERS", new EventPlayerList(losers)).build();
             eventRegister().trigger(EventType.ON_LOSE, eventLose);
         }
 

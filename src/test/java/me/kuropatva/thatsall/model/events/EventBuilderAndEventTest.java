@@ -6,14 +6,15 @@ import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class EventBuilderAndEventTest {
     @Test
     public void eventBuilderAndObjectTest() {
         var testGame = new Game(null);
         var testPlayer = new Player(null);
-        var event = EventBuilder.get().game(testGame).player(testPlayer)
+        var event = Event.builder().game(testGame).player(testPlayer)
                 .value("a", new EventInt(1)).value("b", new EventInt(2))
                 .value("c", new EventString("3")).value("d", new EventString("4"))
                 .build();
@@ -27,6 +28,6 @@ class EventBuilderAndEventTest {
 
     @Test
     public void eventBuilderNullName() {
-        assertThrows(NullPointerException.class, () -> EventBuilder.get().value(null, new EventInt(1)));
+        assertThrows(NullPointerException.class, () -> Event.builder().value(null, new EventInt(1)));
     }
 }
