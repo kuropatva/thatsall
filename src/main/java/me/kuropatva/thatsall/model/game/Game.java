@@ -148,7 +148,7 @@ public class Game {
         return state;
     }
 
-    private int getRoundNumber() {
+    public int getRoundNumber() {
         return roundNumber;
     }
 
@@ -156,7 +156,7 @@ public class Game {
         eventRegister().trigger(evenType, this, event);
     }
 
-    private enum State {
+    public enum State {
         WAIT, ROUND
     }
 }

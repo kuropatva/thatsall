@@ -40,7 +40,7 @@ public class Event {
     }
 
     public void setValue(String key, EventValueType<?> value) {
-        if (value == null) return;
+        if (values == null) return;
         values.put(key, value);
     }
 
