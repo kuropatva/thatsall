@@ -21,7 +21,7 @@ class EventRegisterTest {
         var eventNoRemove = Event.builder().value("int_remove", new EventInt(0)).build();
         var eventWrongValueType = Event.builder().value("int_remove", new EventString("a")).build();
 
-        register.trigger(EventType.ON_LOSE, null, eventNoRemove);
+        register.trigger(EventType.ON_ROUND_READY, null, eventNoRemove);
         assertFalse(sheep.triggered());
         register.trigger(EventType.ON_WIN, null, eventNoRemove);
         assertTrue(sheep.triggered());
