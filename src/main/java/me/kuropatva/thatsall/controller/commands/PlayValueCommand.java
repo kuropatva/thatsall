@@ -5,7 +5,7 @@ import me.kuropatva.thatsall.controller.CommandArgs;
 public class PlayValueCommand extends WebsocketCommand {
     @Override
     public void run(CommandArgs args) {
-        var value = args.getValue("");
+        var value = args.getArg(0);
         int card;
         try {
             card = Integer.parseInt(value);

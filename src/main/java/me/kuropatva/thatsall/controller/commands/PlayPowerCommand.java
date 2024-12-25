@@ -4,7 +4,7 @@ import me.kuropatva.thatsall.controller.CommandArgs;
 
 public class PlayPowerCommand extends WebsocketCommand {
     public void run(CommandArgs args) {
-        var value = args.getValue("");
+        var value = args.getArg(0);
         var player = args.getPlayer();
         var socket = args.lobby().getGameSocketHandler();
         int cardID;
