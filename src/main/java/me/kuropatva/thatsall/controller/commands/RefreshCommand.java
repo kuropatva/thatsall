@@ -5,5 +5,6 @@ import me.kuropatva.thatsall.controller.CommandArgs;
 public class RefreshCommand extends WebsocketCommand {
     @Override
     public void run(CommandArgs cmd) {
+        // TODO
     }
 }

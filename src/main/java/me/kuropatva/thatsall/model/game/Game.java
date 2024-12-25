@@ -101,6 +101,8 @@ public class Game {
     private void finishRound() {
         for (Player player : lobby.players()) {
             player.gamePlayer().addGold(GOLD_PER_ROUND);
+            player.gamePlayer().setPlayedValueCard(-1);
+            player.gamePlayer().resetPlayedPowerCard();
             for (int i = 0; i < PLAYER_ROUND_VALUE_CARDS; i++) {
                 dealValueCard(player);
             }

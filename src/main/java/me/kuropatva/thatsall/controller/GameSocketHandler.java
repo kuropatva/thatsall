@@ -24,11 +24,11 @@ public class GameSocketHandler {
     }
 
     public void refresh(Player player) {
-
+        // TODO
     }
 
     public void finishRound(Player player) {
-
+        // TODO
     }
 
     public void finishGame(Player player, String winner) {

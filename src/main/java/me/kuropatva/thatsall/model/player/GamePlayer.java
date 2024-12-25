@@ -47,6 +47,12 @@ public class GamePlayer {
         this.gold += gold;
     }
 
+    public boolean attemptRemoveGold(int gold) {
+        if (this.gold < gold) return false;
+        this.gold -= gold;
+        return true;
+    }
+
     public void setReady(boolean ready) {
         this.ready = ready;
     }
@@ -59,8 +65,16 @@ public class GamePlayer {
         this.playedValueCard = playedValueCard;
     }
 
-    public void addPlayerPowerCard(Card c) {
+    public void modifyPlayedValueCard(int value) {
+        if (value > 0 && value < 13) this.playedValueCard = value;
+    }
+
+    public void addPlayedPowerCard(Card c) {
         playedPowerCards.add(c);
+    }
+
+    public void resetPlayedPowerCard() {
+        playedPowerCards.clear();
     }
 
     public LinkedList<Card> getPlayedPowerCards() {

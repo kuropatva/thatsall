@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 class GamePlayerTest {
 
@@ -88,12 +88,12 @@ class GamePlayerTest {
     }
 
     @Test
-    void testAddPlayerPowerCard() {
+    void testAddPlayedPowerCard() {
         Card mockCard1 = mock(Card.class);
         Card mockCard2 = mock(Card.class);
 
-        gamePlayer.addPlayerPowerCard(mockCard1);
-        gamePlayer.addPlayerPowerCard(mockCard2);
+        gamePlayer.addPlayedPowerCard(mockCard1);
+        gamePlayer.addPlayedPowerCard(mockCard2);
 
         LinkedList<Card> playedCards = gamePlayer.getPlayedPowerCards();
         assertEquals(2, playedCards.size(), "Played power cards should have two cards");

@@ -11,6 +11,11 @@ public class AnotherCard extends Card {
     }
 
     @Override
+    public int getCost() {
+        return 0;
+    }
+
+    @Override
     public boolean trigger(Game game, Event event) {
         return false;
     }

@@ -11,6 +11,8 @@ public abstract class Card implements EventListener {
 
     public abstract int getID();
 
+    public abstract int getCost();
+
     @Override
     public abstract boolean trigger(Game game, Event event);
 
