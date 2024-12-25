@@ -5,13 +5,12 @@ import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
 
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class Lobby {
     private final HashMap<String, Player> players = new HashMap<>();
     private String password = null;
-    private GameSocketHandler gameSocketHandler = new GameSocketHandler(this);
-    private Game game = new Game(this);
+    private final GameSocketHandler gameSocketHandler = new GameSocketHandler(this);
+    private final Game game = new Game(this);
 
     public void setPassword(String password) {
         this.password = password;
@@ -39,6 +38,7 @@ public class Lobby {
     }
 
     public void addPlayer(Player player) {
+        if (game.state() != Game.State.LOBBY) return;
         players.put(player.username(), player);
     }
 

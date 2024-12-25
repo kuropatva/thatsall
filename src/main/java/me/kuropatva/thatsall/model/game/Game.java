@@ -17,6 +17,7 @@ import java.util.LinkedList;
 
 public class Game {
 
+    // TODO: Extract constants to some sort of config
     private final static int PLAYER_VALUE_CARDS = 5;
     private final static int PLAYER_POWER_CARDS = 5;
     private final static int PLAYER_ROUND_VALUE_CARDS = 1;
@@ -27,7 +28,7 @@ public class Game {
 
     private final Lobby lobby;
     private final EventRegister register = new EventRegister();
-    private State state = State.WAIT;
+    private State state = State.LOBBY;
     private final LinkedList<Integer> valueCard = new LinkedList<>();
     private final RandomPowerCardGenerator randomPowerCardGenerator = new RandomPowerCardGenerator();
     private int playersNotReady = 0;
@@ -176,8 +177,11 @@ public class Game {
         eventRegister().trigger(evenType, this, event);
     }
 
-    public enum State {
-        WAIT, ROUND
+    public void dealPowerCard(Player player) {
+        var card = takePowerCard();
+        var event = Event.builder().value("CARD_VALUE", new EventCard(card)).build();
+        triggerEvent(EventType.ON_POWER_CARD_DEAL, event);
+        player.gamePlayer().playerHand().add((Card) event.getValue("CARD_VALUE").get());
     }
 
     public void dealValueCard(Player player) {
@@ -188,11 +192,8 @@ public class Game {
         player.gamePlayer().playerHand().add((Integer) event.getValue("INT_VALUE").get());
     }
 
-    public void dealPowerCard(Player player) {
-        var card = takePowerCard();
-        var event = Event.builder().value("CARD_VALUE", new EventCard(card)).build();
-        triggerEvent(EventType.ON_POWER_CARD_DEAL, event);
-        player.gamePlayer().playerHand().add(takePowerCard());
+    public enum State {
+        LOBBY, ROUND
     }
 }
 
