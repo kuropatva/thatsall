@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public class GamePlayerHand {
 
-    private LinkedList<Card> powerCards = new LinkedList<>();
-    private LinkedList<Integer> valueCards = new LinkedList<>();
+    private final LinkedList<Card> powerCards = new LinkedList<>();
+    private final LinkedList<Integer> valueCards = new LinkedList<>();
 
     public void add(Card c) {
         powerCards.add(c);
@@ -18,12 +18,12 @@ public class GamePlayerHand {
         valueCards.add(c);
     }
 
-    public void remove(Card c) {
-        powerCards.remove(c);
+    public boolean remove(Card c) {
+        return powerCards.remove(c);
     }
 
-    public void remove(int c) {
-        valueCards.remove((Integer) c);
+    public boolean remove(int c) {
+        return valueCards.remove((Integer) c);
     }
 
     public Optional<Integer> getValue(int id) {

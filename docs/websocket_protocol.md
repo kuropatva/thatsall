@@ -8,6 +8,11 @@ Client updates only when stateHash is different
 `FNG [nickname]`
 ### Error
 `ERR [message]`
+
+### Message
+
+`MSG [message]`
+
 # Client initiated
 ### Update
 `UPT` \

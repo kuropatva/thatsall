@@ -12,7 +12,7 @@ public class GamePlayer {
     private boolean ready = false;
 
     private int playedValueCard = -1;
-    private LinkedList<Card> playedPowerCards = new LinkedList<>();
+    private final LinkedList<Card> playedPowerCards = new LinkedList<>();
 
 
     public int getPoints() {

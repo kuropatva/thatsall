@@ -5,8 +5,8 @@ import me.kuropatva.thatsall.model.cards.RandomPowerCardGenerator;
 import me.kuropatva.thatsall.model.events.Event;
 import me.kuropatva.thatsall.model.events.EventRegister;
 import me.kuropatva.thatsall.model.events.EventType;
+import me.kuropatva.thatsall.model.events.values.EventCard;
 import me.kuropatva.thatsall.model.events.values.EventInt;
-import me.kuropatva.thatsall.model.events.values.EventPlayerList;
 import me.kuropatva.thatsall.model.lobby.Lobby;
 import me.kuropatva.thatsall.model.lobby.LobbyManager;
 import me.kuropatva.thatsall.model.player.Player;
@@ -49,6 +49,7 @@ public class Game {
     public void ready(Player player) {
         if (!player.gamePlayer().isReady()) {
             player.gamePlayer().setReady(true);
+            triggerEvent(EventType.ON_ROUND_READY, Event.statelessEvent(player));
             if (--playersNotReady <= 0) endRound();
         }
     }
@@ -60,7 +61,6 @@ public class Game {
         triggerEvent(EventType.ON_ROUND_READY, Event.statelessEvent());
         // determining the winner
         var winner = getRoundWinner().getPlayer();
-
         // perform actions
         if (winner != null) {
             // events
@@ -68,16 +68,16 @@ public class Game {
             triggerEvent(EventType.ON_WIN, eventWin);
             // add point
             winner.gamePlayer().addPoints((int) eventWin.getValue("INT_POINTS").get());
+
             // losers event
             var losers = new ArrayList<Player>();
             lobby.players().forEach(p -> {
                 if (p != winner) losers.add(p);
             });
-            var eventLose = Event.builder().player(winner).value("PLAYERLIST_LOSERS", new EventPlayerList(losers)).build();
-            triggerEvent(EventType.ON_LOSE, eventLose);
         } else { // draw
             triggerEvent(EventType.ON_DRAW, Event.statelessEvent());
         }
+        lobby.getGameSocketHandler().finishRound(winner);
 
         //check game winner
         var highestPoints = new HighestValue();
@@ -104,13 +104,12 @@ public class Game {
     }
 
     private void gameWinner(Player winner) {
-        lobby.players().forEach(p -> p.sendMessage("FNG " + winner.username())); // TODO: extract
+        lobby.players().forEach(p -> lobby.getGameSocketHandler().finishGame(p, winner.username()));
         LobbyManager.close(lobby);
     }
 
     private void updateAllPlayers() {
-        // TODO
-        // lobby.players().forEach(p -> p.sendMessage(...));
+        lobby.players().forEach(p -> lobby.getGameSocketHandler().refresh(p));
     }
 
     public Integer takeValueCard() {
@@ -136,10 +135,10 @@ public class Game {
             var gP = p.gamePlayer();
             for (int i = 0; i < PLAYER_POWER_CARDS; i++) {
                 if (valueCard.isEmpty()) shuffleValueCards();
-                gP.playerHand().add(takePowerCard());
+                gP.playerHand().add(takeValueCard());
             }
             for (int i = 0; i < PLAYER_VALUE_CARDS; i++) {
-                gP.playerHand().add(takeValueCard());
+                gP.playerHand().add(takePowerCard());
             }
         });
     }
@@ -158,6 +157,21 @@ public class Game {
 
     public enum State {
         WAIT, ROUND
+    }
+
+    public void dealValueCard(Player player) {
+        if (valueCard.isEmpty()) shuffleValueCards();
+        var card = takeValueCard();
+        var event = Event.builder().value("INT_VALUE", new EventInt(card)).build();
+        triggerEvent(EventType.ON_VALUE_CARD_DEAL, event);
+        player.gamePlayer().playerHand().add((Integer) event.getValue("INT_VALUE").get());
+    }
+
+    public void dealPowerCard(Player player) {
+        var card = takePowerCard();
+        var event = Event.builder().value("CARD_VALUE", new EventCard(card)).build();
+        triggerEvent(EventType.ON_POWER_CARD_DEAL, event);
+        player.gamePlayer().playerHand().add(takePowerCard());
     }
 }
 

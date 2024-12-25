@@ -26,4 +26,21 @@ public class GameSocketHandler {
     public void refresh(Player player) {
 
     }
+
+    public void finishRound(Player player) {
+
+    }
+
+    public void finishGame(Player player, String winner) {
+        player.sendMessage("FNG " + winner);
+    }
+
+    public void error(Player player, String message) {
+        player.sendMessage("ERR " + message);
+    }
+
+    private void message(Player player, String message) {
+        player.sendMessage("MSG " + message);
+    }
+
 }
