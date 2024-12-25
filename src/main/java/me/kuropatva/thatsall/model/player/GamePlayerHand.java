@@ -38,4 +38,7 @@ public class GamePlayerHand {
         return powerCards.stream().filter(p -> p.getID() == id).findFirst();
     }
 
+    public int size() {
+        return powerCards.size() + valueCards.size();
+    }
 }

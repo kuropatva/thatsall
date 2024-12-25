@@ -123,12 +123,12 @@ public class Game {
         lobby.players().forEach(p -> p.gamePlayer().setReady(false));
     }
 
-    private void gameWinner(Player winner) {
+    public void gameWinner(Player winner) {
         lobby.players().forEach(p -> lobby.getGameSocketHandler().finishGame(p, winner.username()));
         LobbyManager.close(lobby);
     }
 
-    private void updateAllPlayers() {
+    public void updateAllPlayers() {
         lobby.players().forEach(p -> lobby.getGameSocketHandler().refresh(p));
     }
 
