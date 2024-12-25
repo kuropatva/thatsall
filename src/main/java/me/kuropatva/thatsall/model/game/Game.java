@@ -27,6 +27,7 @@ public class Game {
     private final LinkedList<Integer> valueCard = new LinkedList<>();
     private final RandomPowerCardGenerator randomPowerCardGenerator = new RandomPowerCardGenerator();
     private int playersNotReady = 0;
+    private int roundNumber = 0;
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
@@ -42,6 +43,7 @@ public class Game {
         state = State.ROUND;
         dealHands();
         resetReadiness();
+        roundNumber = 1;
     }
 
     public void ready(Player player) {
@@ -73,6 +75,8 @@ public class Game {
             });
             var eventLose = Event.builder().player(winner).value("PLAYERLIST_LOSERS", new EventPlayerList(losers)).build();
             triggerEvent(EventType.ON_LOSE, eventLose);
+        } else { // draw
+            triggerEvent(EventType.ON_DRAW, Event.statelessEvent());
         }
 
         //check game winner
@@ -82,6 +86,8 @@ public class Game {
             gameWinner(highestPoints.getPlayer());
             return;
         }
+
+        roundNumber++;
         // update players
         updateAllPlayers();
     }
@@ -142,12 +148,16 @@ public class Game {
         return state;
     }
 
-    private enum State {
-        WAIT, ROUND
+    private int getRoundNumber() {
+        return roundNumber;
     }
 
     public void triggerEvent(EventType evenType, Event event) {
         eventRegister().trigger(evenType, this, event);
+    }
+
+    private enum State {
+        WAIT, ROUND
     }
 }
 

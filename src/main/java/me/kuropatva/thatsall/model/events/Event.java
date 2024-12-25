@@ -10,6 +10,8 @@ public class Event {
     private final Player player;
     private final HashMap<String, EventValueType<?>> values;
 
+    private final static Event statelessEvent = new Event((Player) null);
+
     private Event(EventBuilder eventBuilder) {
         this.player = eventBuilder.player;
         this.values = eventBuilder.values;
@@ -17,16 +19,16 @@ public class Event {
 
     private Event(Player player) {
         this.player = player;
-        this.values = new HashMap<>();
+        this.values = null;
     }
 
+    public static Event statelessEvent() {
+        return Event.statelessEvent;
+    }
 
     public EventValueType<?> getValue(String key) {
+        if (values == null) return null;
         return values.getOrDefault(key, null);
-    }
-
-    public void setValue(String key, EventValueType<?> value) {
-        values.put(key, value);
     }
 
     public Player getPlayer() {
@@ -37,8 +39,9 @@ public class Event {
         return new EventBuilder();
     }
 
-    public static Event statelessEvent() {
-        return new Event((Player) null);
+    public void setValue(String key, EventValueType<?> value) {
+        if (value == null) return;
+        values.put(key, value);
     }
 
     public static Event statelessEvent(Player player) {
