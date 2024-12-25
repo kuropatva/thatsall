@@ -2,7 +2,6 @@ package me.kuropatva.thatsall.model.events;
 
 import me.kuropatva.thatsall.model.events.values.EventInt;
 import me.kuropatva.thatsall.model.events.values.EventString;
-import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
 import org.junit.jupiter.api.Test;
 
@@ -12,13 +11,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class EventBuilderAndEventTest {
     @Test
     public void eventBuilderAndObjectTest() {
-        var testGame = new Game(null);
         var testPlayer = new Player(null);
-        var event = Event.builder().game(testGame).player(testPlayer)
+        var event = Event.builder().player(testPlayer)
                 .value("a", new EventInt(1)).value("b", new EventInt(2))
                 .value("c", new EventString("3")).value("d", new EventString("4"))
                 .build();
-        assertEquals(testGame, event.getGame());
         assertEquals(testPlayer, event.getPlayer());
         assertEquals(1, event.getValue("a").get());
         assertEquals(2, event.getValue("b").get());

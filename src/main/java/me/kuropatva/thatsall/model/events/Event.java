@@ -1,20 +1,17 @@
 package me.kuropatva.thatsall.model.events;
 
 import me.kuropatva.thatsall.model.events.values.EventValueType;
-import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
 
 import java.util.HashMap;
 
 public class Event {
 
-    private final Player executor;
-    private final Game game;
+    private final Player player;
     private final HashMap<String, EventValueType<?>> values;
 
     private Event(EventBuilder eventBuilder) {
-        this.executor = eventBuilder.player;
-        this.game = eventBuilder.game;
+        this.player = eventBuilder.player;
         this.values = eventBuilder.values;
     }
 
@@ -28,11 +25,7 @@ public class Event {
     }
 
     public Player getPlayer() {
-        return executor;
-    }
-
-    public Game getGame() {
-        return game;
+        return player;
     }
 
     public static EventBuilder builder() {
@@ -43,18 +36,12 @@ public class Event {
 
         private final HashMap<String, EventValueType<?>> values = new HashMap<>();
         private Player player = null;
-        private Game game = null;
 
         private EventBuilder() {
         }
 
         public EventBuilder player(Player player) {
             this.player = player;
-            return this;
-        }
-
-        public EventBuilder game(Game game) {
-            this.game = game;
             return this;
         }
 

@@ -55,17 +55,16 @@ public class Game {
         // resetting player ready counter
         resetReadiness();
         // trigger events
-        var event = Event.builder().game(lobby.game())
-                .build();
-        eventRegister().trigger(EventType.ON_ROUND_READY, event);
+        var event = Event.builder().build();
+        triggerEvent(EventType.ON_ROUND_READY, event);
         // determining the winner
         var winner = getRoundWinner().getPlayer();
 
         // perform actions
         if (winner != null) {
             // events
-            var eventWin = Event.builder().player(winner).game(this).value("INT_POINTS", new EventInt(2)).build();
-            eventRegister().trigger(EventType.ON_WIN, eventWin);
+            var eventWin = Event.builder().player(winner).value("INT_POINTS", new EventInt(2)).build();
+            triggerEvent(EventType.ON_WIN, eventWin);
             // add point
             winner.gamePlayer().addPoints((int) eventWin.getValue("INT_POINTS").get());
             // losers event
@@ -73,8 +72,8 @@ public class Game {
             lobby.players().forEach(p -> {
                 if (p != winner) losers.add(p);
             });
-            var eventLose = Event.builder().player(winner).game(this).value("PLAYERLIST_LOSERS", new EventPlayerList(losers)).build();
-            eventRegister().trigger(EventType.ON_LOSE, eventLose);
+            var eventLose = Event.builder().player(winner).value("PLAYERLIST_LOSERS", new EventPlayerList(losers)).build();
+            triggerEvent(EventType.ON_LOSE, eventLose);
         }
 
         //check game winner
@@ -146,6 +145,10 @@ public class Game {
 
     private enum State {
         WAIT, ROUND
+    }
+
+    public void triggerEvent(EventType evenType, Event event) {
+        eventRegister().trigger(evenType, this, event);
     }
 }
 

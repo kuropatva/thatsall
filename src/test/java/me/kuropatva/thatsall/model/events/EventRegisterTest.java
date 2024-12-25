@@ -2,6 +2,7 @@ package me.kuropatva.thatsall.model.events;
 
 import me.kuropatva.thatsall.model.events.values.EventInt;
 import me.kuropatva.thatsall.model.events.values.EventString;
+import me.kuropatva.thatsall.model.game.Game;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,25 +21,25 @@ class EventRegisterTest {
         var eventNoRemove = Event.builder().value("int_remove", new EventInt(0)).build();
         var eventWrongValueType = Event.builder().value("int_remove", new EventString("a")).build();
 
-        register.trigger(EventType.ON_LOSE, eventNoRemove);
+        register.trigger(EventType.ON_LOSE, null, eventNoRemove);
         assertFalse(sheep.triggered());
-        register.trigger(EventType.ON_WIN, eventNoRemove);
+        register.trigger(EventType.ON_WIN, null, eventNoRemove);
         assertTrue(sheep.triggered());
         sheep.reset();
-        register.trigger(EventType.ON_WIN, eventRemove);
+        register.trigger(EventType.ON_WIN, null, eventRemove);
         assertTrue(sheep.triggered());
         sheep.reset();
-        register.trigger(EventType.ON_WIN, eventNoRemove);
+        register.trigger(EventType.ON_WIN, null, eventNoRemove);
         assertFalse(sheep.triggered());
 
-        assertThrows(ClassCastException.class, () -> sheep.trigger(eventWrongValueType));
+        assertThrows(ClassCastException.class, () -> sheep.trigger(null, eventWrongValueType));
     }
 
     @Test
     void modify() {
         var sheep = new ListenerSheep();
         var eventModify = Event.builder().value("int_modify", new EventInt(1)).build();
-        sheep.trigger(eventModify);
+        sheep.trigger(null, eventModify);
 
         assertEquals(2, eventModify.getValue("int_modify").get());
     }
@@ -69,7 +70,7 @@ class ListenerSheep implements EventListener {
     }
 
     @Override
-    public boolean trigger(Event event) {
+    public boolean trigger(Game game, Event event) {
         triggered = true;
 
         EventInt modify = (EventInt) event.getValue("int_modify");

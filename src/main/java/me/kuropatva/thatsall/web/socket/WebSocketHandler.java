@@ -34,6 +34,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         var player = sessions.get(session);
         System.out.println(message.getPayload());
-        player.getLobby().getGameSocketHandler().handle(player, message.getPayload());
+        player.getLobby().getGameSocketHandler().handleIncoming(player, message.getPayload());
     }
 }

@@ -5,7 +5,6 @@ import me.kuropatva.thatsall.model.cards.RandomPowerCardGenerator;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RandomPowerCardGeneratorTest {
 

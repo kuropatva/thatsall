@@ -2,6 +2,7 @@ package me.kuropatva.thatsall.model.cards;
 
 import me.kuropatva.thatsall.model.events.Event;
 import me.kuropatva.thatsall.model.events.EventListener;
+import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
 
 public abstract class Card implements EventListener {
@@ -11,7 +12,7 @@ public abstract class Card implements EventListener {
     public abstract int getID();
 
     @Override
-    public abstract boolean trigger(Event event);
+    public abstract boolean trigger(Game game, Event event);
 
     public Player getOwner() {
         return player;

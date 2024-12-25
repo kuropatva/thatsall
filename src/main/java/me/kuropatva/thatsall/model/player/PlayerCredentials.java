@@ -19,17 +19,4 @@ public class PlayerCredentials {
     public String username() {
         return username;
     }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PlayerCredentials that = (PlayerCredentials) o;
-        return Objects.equals(username, that.username) && Objects.equals(passcode, that.passcode);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(username, passcode);
-    }
 }
