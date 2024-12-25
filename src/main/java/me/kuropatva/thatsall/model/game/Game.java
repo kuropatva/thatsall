@@ -19,6 +19,10 @@ public class Game {
 
     private final static int PLAYER_VALUE_CARDS = 5;
     private final static int PLAYER_POWER_CARDS = 5;
+    private final static int PLAYER_ROUND_VALUE_CARDS = 1;
+    private final static int PLAYER_ROUND_POWER_CARDS = 1;
+    private final static int GOLD_PER_ROUND = 5;
+    private final static int GOLD_AT_START = 10;
     private final static int WIN_POINTS = 20;
 
     private final Lobby lobby;
@@ -86,10 +90,24 @@ public class Game {
             gameWinner(highestPoints.getPlayer());
             return;
         }
-
+        // finish round
         roundNumber++;
+        finishRound();
+        triggerEvent(EventType.ON_ROUND_FINISH, Event.statelessEvent());
         // update players
         updateAllPlayers();
+    }
+
+    private void finishRound() {
+        for (Player player : lobby.players()) {
+            player.gamePlayer().addGold(GOLD_PER_ROUND);
+            for (int i = 0; i < PLAYER_ROUND_VALUE_CARDS; i++) {
+                dealValueCard(player);
+            }
+            for (int i = 0; i < PLAYER_ROUND_POWER_CARDS; i++) {
+                dealPowerCard(player);
+            }
+        }
     }
 
     private HighestValue getRoundWinner() {
@@ -133,6 +151,7 @@ public class Game {
     private void dealHands() {
         lobby.players().forEach(p -> {
             var gP = p.gamePlayer();
+            gP.setGold(GOLD_AT_START);
             for (int i = 0; i < PLAYER_POWER_CARDS; i++) {
                 if (valueCard.isEmpty()) shuffleValueCards();
                 gP.playerHand().add(takeValueCard());

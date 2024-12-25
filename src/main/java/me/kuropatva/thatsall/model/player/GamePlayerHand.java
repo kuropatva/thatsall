@@ -26,6 +26,11 @@ public class GamePlayerHand {
         return valueCards.remove((Integer) c);
     }
 
+    public boolean removeById(int id) {
+        var card = powerCards.stream().filter(c -> c.getID() == id).findFirst();
+        return card.map(powerCards::remove).orElse(false);
+    }
+
     public Optional<Integer> getValue(int id) {
         return valueCards.stream().filter(v -> id == v).findFirst();
     }
