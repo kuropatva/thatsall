@@ -14,7 +14,10 @@ public class PlayValueCommand extends WebsocketCommand {
             return;
         }
         var removed = args.getPlayer().gamePlayer().playerHand().remove(card);
-        if (!removed) args.lobby().getGameSocketHandler().error(args.getPlayer(), "Value card missing from hand");
+        if (!removed) {
+            args.lobby().getGameSocketHandler().error(args.getPlayer(), "Value card missing from hand");
+            return;
+        }
         args.getPlayer().gamePlayer().setPlayedValueCard(card);
         args.lobby().game().ready(args.getPlayer());
     }
