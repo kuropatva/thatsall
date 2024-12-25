@@ -15,6 +15,11 @@ public class Event {
         this.values = eventBuilder.values;
     }
 
+    private Event(Player player) {
+        this.player = player;
+        this.values = new HashMap<>();
+    }
+
 
     public EventValueType<?> getValue(String key) {
         return values.getOrDefault(key, null);
@@ -30,6 +35,14 @@ public class Event {
 
     public static EventBuilder builder() {
         return new EventBuilder();
+    }
+
+    public static Event statelessEvent() {
+        return new Event((Player) null);
+    }
+
+    public static Event statelessEvent(Player player) {
+        return new Event(player);
     }
 
     public static class EventBuilder {

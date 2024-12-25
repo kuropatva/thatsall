@@ -55,8 +55,7 @@ public class Game {
         // resetting player ready counter
         resetReadiness();
         // trigger events
-        var event = Event.builder().build();
-        triggerEvent(EventType.ON_ROUND_READY, event);
+        triggerEvent(EventType.ON_ROUND_READY, Event.statelessEvent());
         // determining the winner
         var winner = getRoundWinner().getPlayer();
 
