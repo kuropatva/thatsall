@@ -7,7 +7,8 @@ import org.junit.jupiter.api.Test;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 class GamePlayerHandTest {
 
@@ -22,14 +23,14 @@ class GamePlayerHandTest {
     void testAddPowerCard() {
         // Arrange
         Card mockCard = mock(Card.class);
-        when(mockCard.getID()).thenReturn(1);
+        when(mockCard.getID()).thenReturn(String.valueOf(1));
 
         // Act
         gamePlayerHand.add(mockCard);
 
         // Assert
-        assertTrue(gamePlayerHand.getPower(1).isPresent());
-        assertEquals(mockCard, gamePlayerHand.getPower(1).get());
+        assertTrue(gamePlayerHand.getPower(String.valueOf(1)).isPresent());
+        assertEquals(mockCard, gamePlayerHand.getPower(String.valueOf(1)).get());
     }
 
     @Test
@@ -49,14 +50,14 @@ class GamePlayerHandTest {
     void testRemovePowerCard() {
         // Arrange
         Card mockCard = mock(Card.class);
-        when(mockCard.getID()).thenReturn(1);
+        when(mockCard.getID()).thenReturn(String.valueOf(1));
         gamePlayerHand.add(mockCard);
 
         // Act
         gamePlayerHand.remove(mockCard);
 
         // Assert
-        assertFalse(gamePlayerHand.getPower(1).isPresent());
+        assertFalse(gamePlayerHand.getPower(String.valueOf(1)).isPresent());
     }
 
     @Test
@@ -76,10 +77,10 @@ class GamePlayerHandTest {
     void testGetPowerCardWhenNotPresent() {
         // Arrange
         Card mockCard = mock(Card.class);
-        when(mockCard.getID()).thenReturn(99);
+        when(mockCard.getID()).thenReturn(String.valueOf(99));
 
         // Act
-        Optional<Card> result = gamePlayerHand.getPower(99);
+        Optional<Card> result = gamePlayerHand.getPower(String.valueOf(99));
 
         // Assert
         assertFalse(result.isPresent());
@@ -99,18 +100,18 @@ class GamePlayerHandTest {
         // Arrange
         Card mockCard1 = mock(Card.class);
         Card mockCard2 = mock(Card.class);
-        when(mockCard1.getID()).thenReturn(1);
-        when(mockCard2.getID()).thenReturn(2);
+        when(mockCard1.getID()).thenReturn(String.valueOf(1));
+        when(mockCard2.getID()).thenReturn(String.valueOf(2));
 
         // Act
         gamePlayerHand.add(mockCard1);
         gamePlayerHand.add(mockCard2);
 
         // Assert
-        assertTrue(gamePlayerHand.getPower(1).isPresent());
-        assertTrue(gamePlayerHand.getPower(2).isPresent());
-        assertEquals(mockCard1, gamePlayerHand.getPower(1).get());
-        assertEquals(mockCard2, gamePlayerHand.getPower(2).get());
+        assertTrue(gamePlayerHand.getPower(String.valueOf(1)).isPresent());
+        assertTrue(gamePlayerHand.getPower(String.valueOf(2)).isPresent());
+        assertEquals(mockCard1, gamePlayerHand.getPower(String.valueOf(1)).get());
+        assertEquals(mockCard2, gamePlayerHand.getPower(String.valueOf(2)).get());
     }
 
     @Test
@@ -134,13 +135,13 @@ class GamePlayerHandTest {
     void testRemoveNonExistentPowerCard() {
         // Arrange
         Card mockCard = mock(Card.class);
-        when(mockCard.getID()).thenReturn(1);
+        when(mockCard.getID()).thenReturn(String.valueOf(1));
 
         // Act
         gamePlayerHand.remove(mockCard);
 
         // Assert
-        assertFalse(gamePlayerHand.getPower(1).isPresent());
+        assertFalse(gamePlayerHand.getPower(String.valueOf(1)).isPresent());
     }
 
     @Test

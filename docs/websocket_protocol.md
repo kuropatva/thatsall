@@ -23,3 +23,7 @@ Server answers with REF
 
 ### Play power card
 `PLP [card_id]`
+
+### Start
+
+`STR`

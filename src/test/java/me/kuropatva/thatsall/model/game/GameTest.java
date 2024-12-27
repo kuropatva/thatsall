@@ -133,6 +133,5 @@ class GameTest {
         Event event = Event.statelessEvent();
         game.triggerEvent(EventType.ON_ROUND_FINISH, event);
 
-        // No specific assertions as it depends on how the event system is implemented
     }
 }

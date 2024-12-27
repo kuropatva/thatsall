@@ -1,0 +1,17 @@
+# events:    ON_ROUND_READY, ON_WIN, ON_DRAW, ON_VALUE_CARD_DEAL, ON_POWER_CARD_DEAL, ON_PLAYER_READY, ON_ROUND_FINISH
+# Card format:
+# ClassName:
+#   cost: 1
+#   events: ON_WIN, ON_DRAW
+#   name: Display card name
+#   description: Display card desc
+AnotherCard:
+  cost: 1
+  events: ON_WIN, ON_DRAW
+  name: Another card test name
+  description: Another card test desc
+TestCard:
+  cost: 2
+  events: ON_ROUND_READY
+  name: Basic test
+  description: one two three four

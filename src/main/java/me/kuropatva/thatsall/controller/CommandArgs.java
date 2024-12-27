@@ -15,25 +15,25 @@ public class CommandArgs {
     public CommandArgs(Lobby lobby, Player player, String command) {
         this.lobby = lobby;
         this.player = player;
-        var a = command.split(" ");
-        commandName = a[0];
+        var arr = command.split(" ");
+        commandName = arr[0];
 //        String key = null;
 //        StringBuilder value = new StringBuilder();
-//        for (int i = 1; i < a.length; i++) {
-//            if (a[i].startsWith("-")) {
+//        for (int i = 1; i < arr.length; i++) {
+//            if (arr[i].startsWith("-")) {
 //                if (key != null) {
 //                    args.put(key, value.toString().trim());
 //                }
 //                value = new StringBuilder();
-//                key = a[i].substring(1);
+//                key = arr[i].substring(1);
 //            } else {
-//                value.append(a[i]).append(' ');
+//                value.append(arr[i]).append(' ');
 //            }
 //        }
 //        if (key != null) {
 //            args.put(key, value.toString().trim());
 //        }
-        args = a;
+        args = arr;
     }
 
     public Lobby lobby() {
@@ -63,15 +63,5 @@ public class CommandArgs {
     public String getArg(int num) {
         if (num < 0 || args.length - 1 < num) return null;
         return args[num - 1];
-    }
-
-    @Override
-    public String toString() {
-        return "ExecutableCommand{" +
-                "game=" + lobby +
-                ", player=" + player +
-                ", commandName='" + commandName + '\'' +
-                ", args=" + args +
-                '}';
     }
 }

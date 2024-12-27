@@ -3,6 +3,7 @@ package me.kuropatva.thatsall.model.player;
 import me.kuropatva.thatsall.model.cards.Card;
 
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class GamePlayer {
 
@@ -79,5 +80,10 @@ public class GamePlayer {
 
     public LinkedList<Card> getPlayedPowerCards() {
         return playedPowerCards;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(playerHand, getPoints(), getGold(), isReady(), getPlayedValueCard(), getPlayedPowerCards());
     }
 }
