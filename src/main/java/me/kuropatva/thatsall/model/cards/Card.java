@@ -46,6 +46,10 @@ public abstract class Card implements EventListener {
 
     @Override
     public String toString() {
+        return "\"" + getID() + "\"";
+    }
+
+    public String toFancyString() {
         return "Card{" +
                 "player=" + player + "," +
                 "id=" + getID() + "," +

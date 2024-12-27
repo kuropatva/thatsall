@@ -43,6 +43,10 @@ public class GamePlayerHand {
         return powerCards.size() + valueCards.size();
     }
 
+    public String json() {
+        return "\"value\": " + valueCards + ", \"power\": " + powerCards;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(powerCards, valueCards);

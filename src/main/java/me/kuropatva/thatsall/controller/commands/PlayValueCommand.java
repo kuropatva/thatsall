@@ -6,6 +6,7 @@ public class PlayValueCommand extends WebsocketCommand {
     @Override
     public void run(CommandArgs args) {
         var value = args.getArg(0);
+        if (args.getPlayer().gamePlayer().isReady()) return;
         int card;
         try {
             card = Integer.parseInt(value);

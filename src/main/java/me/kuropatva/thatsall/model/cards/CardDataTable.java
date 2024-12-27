@@ -1,6 +1,7 @@
 package me.kuropatva.thatsall.model.cards;
 
 import me.kuropatva.thatsall.model.events.EventType;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -8,6 +9,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
+
+// annotation to trigger static block
+@Component
 public class CardDataTable {
 
     private static final CardData NULL_CARD_DATA = new CardData(404, null, "Card not found", "For some reason data couldn't be loaded.");
@@ -35,13 +39,21 @@ public class CardDataTable {
                     DataBuilder.add(line);
                 }
             }
-            System.out.println(DataBuilder.buildCounter);
-            if (DataBuilder.buildCounter != 5) throw new RuntimeException("cards.yml line number check failed.");
+            if (DataBuilder.buildCounter != 5) throw new Exception("cards.yml line number check failed.");
         } catch (Exception e) {
-            throw new Error("CardDataTable error. Please verify cards.yml correctness, crashed at line " + lineCounter + ".\n" + e);
+            throw new RuntimeException("CardDataTable error. Please verify cards.yml correctness, crashed at line " + lineCounter + ".\n" + e);
         }
     }
 
+    public static String json() {
+        StringBuilder sb = new StringBuilder("{");
+        map.forEach((k, v) -> sb.append(v.toJson(k)).append(", "));
+        var index = sb.lastIndexOf(", ");
+        sb.replace(index, index + 3, "");
+        return sb.append("}").toString();
+    }
+
+    // TODO: Better validity check
     private static class DataBuilder {
         private static String className;
         private static int cost;
@@ -51,7 +63,7 @@ public class CardDataTable {
 
         private static int buildCounter = 5;
 
-        public static void add(String line) {
+        private static void add(String line) {
             var split = line.split(": ");
             switch (split[0].strip().toUpperCase()) {
                 case "COST" -> {
@@ -72,7 +84,7 @@ public class CardDataTable {
                     buildCounter--;
                 }
                 default -> {
-                    className = split[0].replaceAll(":", "").replaceAll(" ", "");
+                    className = split[0].replaceAll(":", "").strip();
                     buildCounter--;
                 }
             }

@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 @SuppressWarnings("unused")
 public class CardAPI {
 
+    private static String all = null;
+
     @GetMapping("/name/{id}")
     public String getName(@PathVariable String id) {
         return CardDataTable.get(id).name();
@@ -29,5 +31,11 @@ public class CardAPI {
     @GetMapping("/json/{id}")
     public String getJson(@PathVariable String id) {
         return CardDataTable.get(id).toJson();
+    }
+
+    @GetMapping("all.js")
+    public String getAll() {
+        if (all == null) all = CardDataTable.json();
+        return "const cardData = " + all;
     }
 }

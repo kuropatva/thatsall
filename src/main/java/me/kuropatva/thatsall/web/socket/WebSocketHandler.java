@@ -20,7 +20,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
         var player = LobbyManager.game(game).getPlayer(username);
         sessions.putIfAbsent(session, player);
         player.addSession(session);
-        System.out.println("con");
     }
 
     @Override
@@ -33,7 +32,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         var player = sessions.get(session);
-        System.out.println(message.getPayload());
         player.getLobby().getGameSocketHandler().handleIncoming(player, message.getPayload());
     }
 }

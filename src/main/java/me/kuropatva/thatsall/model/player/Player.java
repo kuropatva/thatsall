@@ -12,7 +12,7 @@ public class Player {
     private final PlayerCredentials playerCredentials;
     private final GamePlayer gamePlayer = new GamePlayer();
     private Lobby lobby;
-    private LinkedList<WebSocketSession> sessions = new LinkedList<>();
+    private final LinkedList<WebSocketSession> sessions = new LinkedList<>();
 
     public Player(PlayerCredentials playerCredentials) {
         this.playerCredentials = playerCredentials;
@@ -67,7 +67,7 @@ public class Player {
             }
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

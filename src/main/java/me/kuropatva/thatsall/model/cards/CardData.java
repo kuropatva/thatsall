@@ -12,4 +12,12 @@ public record CardData(int cost, EventType[] events, String name, String descrip
                 "\"name\": \"" + name + "\",\n" +
                 "\"description\": \"" + description + "\"\n}";
     }
+
+    public String toJson(String id) {
+        return "\"" + id + "\": " + "{" +
+                "\"cost\": " + cost + ",\n" +
+                "\"events\": \"" + Arrays.toString(events) + " " + "\"\n," +
+                "\"name\": \"" + name + "\",\n" +
+                "\"description\": \"" + description + "\"\n}";
+    }
 }

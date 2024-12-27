@@ -50,6 +50,15 @@ public class Lobby {
         return gameSocketHandler;
     }
 
+    public String playersJson() {
+        StringBuilder sb = new StringBuilder("[");
+        players.values().forEach(p -> sb.append("{\"name\": \"").append(p.username()).append("\", \"points\": ").append(p.gamePlayer().getPoints()).append("}, "));
+        int r = sb.lastIndexOf(",");
+        if (r != -1)
+            sb.replace(r, r + 2, "]");
+        return sb.toString();
+    }
+
     public void close() {
         players.forEach((ignored, p) -> {
             p.getLobby(null);

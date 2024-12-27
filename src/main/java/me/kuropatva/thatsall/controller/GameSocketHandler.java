@@ -5,13 +5,16 @@ import me.kuropatva.thatsall.controller.commands.PlayValueCommand;
 import me.kuropatva.thatsall.controller.commands.StartGameCommand;
 import me.kuropatva.thatsall.model.lobby.Lobby;
 import me.kuropatva.thatsall.model.player.Player;
+import me.kuropatva.thatsall.view.PlayerGameView;
 
 public class GameSocketHandler {
 
     private final Lobby lobby;
+    private final PlayerGameView gameView;
 
     public GameSocketHandler(Lobby lobby) {
         this.lobby = lobby;
+        this.gameView = new PlayerGameView(lobby);
     }
 
     public static String stateHash(Player player, Lobby lobby) {
@@ -29,7 +32,7 @@ public class GameSocketHandler {
     }
 
     public void refreshPlayer(Player player) {
-        var json = ""; // TODO
+        var json = gameView.getJson(player);
         player.sendMessage("REF " + stateHash(player, lobby) + " " + json);
     }
 

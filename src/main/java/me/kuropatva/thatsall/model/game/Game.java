@@ -18,8 +18,8 @@ import java.util.Objects;
 public class Game {
 
     // TODO: Extract constants to some sort of config
-    private final static int PLAYER_VALUE_CARDS = 5;
-    private final static int PLAYER_POWER_CARDS = 5;
+    private final static int PLAYER_VALUE_CARDS = 3;
+    private final static int PLAYER_POWER_CARDS = 4;
     private final static int PLAYER_ROUND_VALUE_CARDS = 1;
     private final static int PLAYER_ROUND_POWER_CARDS = 1;
     private final static int GOLD_PER_ROUND = 5;
@@ -146,7 +146,7 @@ public class Game {
     }
 
     private void shuffleValueCards() {
-        for (int i = 0; i < 14; i++) {
+        for (int i = 1; i < 14; i++) {
             for (int j = 0; j < 4; j++) {
                 valueCard.push(i);
             }

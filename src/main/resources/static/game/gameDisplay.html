@@ -1,16 +1,17 @@
 <html>
 <title>That's all Game</title>
 <head>
-    <link rel="stylesheet" href="/lobby/style.css">
+    <link href="/source/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="playfield">
-    Ty: 12G
-    Wrog 1: 20G
+<div class="playfield" id="playfield">
+
 </div>
-Twoj wybor:
+Twoje złoto:
+<div id="goldCount"></div>
+.
 <button class="playButton">Zagraj</button>
-<div class="cardlist">
+<div class="cardlist" id="cardlist">
     <div class="card valueCard">
         <div class="cardTitle">As</div>
     </div>
@@ -32,7 +33,9 @@ Twoj wybor:
     <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"
             integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd"
             crossorigin="anonymous"></script>
-    <script src="/lobby/mechanics.js"></script>
-    <script src="/lobby/socket.js"></script>
+    <script src="/source/mechanics.js"></script>
+    <script src="/source/socket.js"></script>
+    <script src="/cardapi/all.js"></script>
+</div>
 </body>
 </html>
