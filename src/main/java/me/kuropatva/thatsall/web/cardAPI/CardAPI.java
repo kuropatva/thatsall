@@ -1,4 +1,4 @@
-package me.kuropatva.thatsall.web.cardApi;
+package me.kuropatva.thatsall.web.cardAPI;
 
 import me.kuropatva.thatsall.model.cards.CardDataTable;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/cardsapi")
+@RequestMapping("/cardapi")
 @SuppressWarnings("unused")
-public class CardApi {
+public class CardAPI {
 
     @GetMapping("/name/{id}")
     public String getName(@PathVariable String id) {
