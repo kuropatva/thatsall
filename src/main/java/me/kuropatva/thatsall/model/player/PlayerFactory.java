@@ -24,7 +24,7 @@ public class PlayerFactory {
 
     public Player build() {
         Player p = new Player(new PlayerCredentials(username, passcode));
-        p.getLobby(lobby);
+        p.setLobby(lobby);
         return p;
     }
 }

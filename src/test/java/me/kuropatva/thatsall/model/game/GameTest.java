@@ -123,7 +123,7 @@ class GameTest {
         game.gameWinner(winner);
 
         for (Player player : realPlayers) {
-            assertTrue(player.getLobby() == null || player.getLobby() != lobby);
+            assertTrue(player.setLobby() == null || player.setLobby() != lobby);
         }
     }
 

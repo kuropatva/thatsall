@@ -18,11 +18,11 @@ public class Player {
         this.playerCredentials = playerCredentials;
     }
 
-    public Lobby getLobby() {
+    public Lobby setLobby() {
         return lobby;
     }
 
-    public void getLobby(Lobby lobby) {
+    public void setLobby(Lobby lobby) {
         this.lobby = lobby;
     }
 

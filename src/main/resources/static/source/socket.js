@@ -5,11 +5,11 @@ const goldCount = document.getElementById("goldCount");
 const playfield = document.getElementById("playfield");
 
 socket.onopen = function(event) {
-  alert("Connected");
+  console.log("Websocket connected");
 };
 
 socket.onerror = function(event) {
-    alert("Error");
+    alert("Websocket/server error.");
 };
 
 socket.onmessage = function(event) {
@@ -49,15 +49,20 @@ function ref(json) {
     console.log(json);
     goldCount.innerHTML = json.gold;
     playfield.innerHTML = JSON.stringify(json.players);
-    var tempCardlist = document.createElement("div");
+    var tempCardList = document.createElement("div");
+    for (var i in json.value) {
+        var cardValue = json.value[i];
+        tempCardList.appendChild(htmlValueCard(cardValue));
+    }
+
     for (var i in json.power) {
         var cardID = json.power[i];
         var cardInfo = cardData[cardID];
         console.log(cardID);
         console.log(cardInfo);
-        tempCardlist.appendChild(htmlPowerCard(cardID, cardInfo));
+        tempCardList.appendChild(htmlPowerCard(cardID, cardInfo));
     }
-    tempCardlist.id = "cardlist";
+    tempCardList.id = "cardlist";
     document.getElementById("cardlist").replaceWith(tempCardlist);
 }
 
@@ -71,18 +76,28 @@ function htmlPowerCard(id, data) {
     temp.id = id;
     addCardListener(temp);
 
-    var tempCost = document.createElement("div");
-    tempCost.classList.add("cardCost");
-    tempCost.innerHTML = data.cost;
-    temp.appendChild(tempCost);
+    appendDiv(temp, "cardCost", data.cost);
+    appendDiv(temp, "cardTitle", " " + data.name);
+    appendDiv(temp, "", data.description);
 
-    var tempName = document.createElement("div");
-    tempName.classList.add("cardTitle");
-    tempName.innerHTML = " " + data.name;
-    temp.appendChild(tempName);
-
-    var tempDesc = document.createElement("div");
-    tempDesc.innerHTML = data.description
-    temp.appendChild(tempDesc);
     return temp;
+}
+
+function htmlValueCard(cardValue) {
+    var temp = document.createElement("div");
+    temp.classList.add("card");
+    temp.classList.add("valueCard")
+    temp.id = cardValue;
+
+    appendDiv(temp, "cardTitle", cardValue);
+
+    addCardListener(temp);
+    return temp;
+}
+
+function appendDiv(parent, class, text) {
+    var tempName = document.createElement("div");
+    tempName.classList.add(class);
+    tempName.innerHTML = text;
+    temp.appendChild(tempName);
 }

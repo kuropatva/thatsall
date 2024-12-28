@@ -30,10 +30,10 @@ class PlayerTest {
 
     @Test
     void testGetAndSetLobby() {
-        assertNull(player.getLobby(), "Lobby should initially be null");
+        assertNull(player.setLobby(), "Lobby should initially be null");
 
-        player.getLobby(mockLobby);
-        assertEquals(mockLobby, player.getLobby(), "Lobby should be set correctly");
+        player.setLobby(mockLobby);
+        assertEquals(mockLobby, player.setLobby(), "Lobby should be set correctly");
     }
 
     @Test

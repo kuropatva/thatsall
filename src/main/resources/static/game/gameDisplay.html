@@ -4,38 +4,18 @@
     <link href="/source/style.css" rel="stylesheet">
 </head>
 <body>
-<div class="playfield" id="playfield">
-
-</div>
+<div class="playerData" id="playerData"></div>
+<div class="playfield" id="playfield"></div>
 Twoje złoto:
 <div id="goldCount"></div>
-.
 <button class="playButton">Zagraj</button>
-<div class="cardlist" id="cardlist">
-    <div class="card valueCard">
-        <div class="cardTitle">As</div>
-    </div>
-    <div class="card valueCard">
-        <div class="cardTitle">Królowa</div>
-    </div>
-    <div class="card">
-        <div class="cardCost">5G</div>
-        <div class="cardTitle">Podwójna wiktoria</div>
-        <br>
-        Gdy wygrasz w tej rundzie otrzymaj dodatkowy punkt.
-    </div>
-    <div class="card">
-        <div class="cardCost">8G</div>
-        <div class="cardTitle">Remis?</div>
-        <br>
-        W przypadku zagrania kart o tej samej wartości zabierz punkt przeciwnikowi.
-    </div>
-    <script src="https://cdn.socket.io/4.8.0/socket.io.min.js"
-            integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd"
-            crossorigin="anonymous"></script>
-    <script src="/source/mechanics.js"></script>
-    <script src="/source/socket.js"></script>
-    <script src="/cardapi/all.js"></script>
-</div>
+<div class="cardlist" id="cardlist"></div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd"
+        src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
+<script src="/source/mechanics.js"></script>
+<script src="/source/socket.js"></script>
+<script src="/cardapi/all.js"></script>
 </body>
 </html>

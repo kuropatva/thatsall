@@ -61,7 +61,7 @@ public class Lobby {
 
     public void close() {
         players.forEach((ignored, p) -> {
-            p.getLobby(null);
+            p.setLobby(null);
             p.clearSessions();
         });
         players.clear();

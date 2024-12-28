@@ -49,7 +49,8 @@ public class CardDataTable {
         StringBuilder sb = new StringBuilder("{");
         map.forEach((k, v) -> sb.append(v.toJson(k)).append(", "));
         var index = sb.lastIndexOf(", ");
-        sb.replace(index, index + 3, "");
+        if (index != -1)
+            sb.replace(index, index + 3, "");
         return sb.append("}").toString();
     }
 

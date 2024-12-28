@@ -32,6 +32,6 @@ public class WebSocketHandler extends TextWebSocketHandler {
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         var player = sessions.get(session);
-        player.getLobby().getGameSocketHandler().handleIncoming(player, message.getPayload());
+        player.setLobby().getGameSocketHandler().handleIncoming(player, message.getPayload());
     }
 }
