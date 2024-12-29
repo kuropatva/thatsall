@@ -13,12 +13,11 @@ public class PlayPowerCommand extends WebsocketCommand {
             socket.error(player, "Power card missing from hand");
             return;
         }
-        if (player.gamePlayer().attemptRemoveGold(card.getCost())) { // TODO: Specify card
+        if (!player.gamePlayer().attemptRemoveGold(card.getCost())) { // TODO: Specify card
             socket.error(player, "Insufficient gold to play power card.");
             return;
         }
         player.gamePlayer().playerHand().remove(card);
         player.gamePlayer().addPlayedPowerCard(card);
-        args.lobby().game().ready(player);
     }
 }

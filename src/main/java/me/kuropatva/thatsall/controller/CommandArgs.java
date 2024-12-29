@@ -62,6 +62,6 @@ public class CommandArgs {
 
     public String getArg(int num) {
         if (num < 0 || args.length - 1 < num) return null;
-        return args[num - 1];
+        return args[num + 1];
     }
 }

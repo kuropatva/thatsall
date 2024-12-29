@@ -9,11 +9,11 @@ public class HighestValue {
 
 
     public void add(int value, Player player) {
-        if (highestValue == value) {
-            holder = null;
-        } else {
+        if (highestValue < value) {
             highestValue = value;
             holder = player;
+        } else if (highestValue == value) {
+            holder = null;
         }
     }
 

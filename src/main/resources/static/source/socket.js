@@ -1,5 +1,6 @@
 const socket = new WebSocket('/socket');
 var hash = -1;
+var gold = 0;
 
 const goldCount = document.getElementById("goldCount");
 const playfield = document.getElementById("playfield");
@@ -21,7 +22,8 @@ socket.onclose = function(event) {
 };
 
 function sendMessage(message) {
-  socket.send(message);
+    console.log(message)
+    socket.send(message);
 }
 
 function upt() {
@@ -42,12 +44,23 @@ function handleMessage(message) {
             hash = messageHash;
             ref(JSON.parse(message.substring(space + 1)));
             break;
+        case "ERR":
+            alert("game errror" + message.substring(space + 1));
+            break;
+        case "FNR":
+            alert("Round won by " + message.substring(space + 1));
+            break;
+        case "FNG":
+            alert("Game won by " + message.substring(space + 1));
+            break;
     }
 }
 
 function ref(json) {
     console.log(json);
     goldCount.innerHTML = json.gold;
+    gold = json.gold;
+    switchButtonOn();
     playfield.innerHTML = JSON.stringify(json.players);
     var tempCardList = document.createElement("div");
     for (var i in json.value) {
@@ -63,7 +76,7 @@ function ref(json) {
         tempCardList.appendChild(htmlPowerCard(cardID, cardInfo));
     }
     tempCardList.id = "cardlist";
-    document.getElementById("cardlist").replaceWith(tempCardlist);
+    document.getElementById("cardlist").replaceWith(tempCardList);
 }
 
 function testUPT() {
@@ -78,7 +91,7 @@ function htmlPowerCard(id, data) {
 
     appendDiv(temp, "cardCost", data.cost);
     appendDiv(temp, "cardTitle", " " + data.name);
-    appendDiv(temp, "", data.description);
+    appendDiv(temp, "text", data.description);
 
     return temp;
 }
@@ -95,9 +108,34 @@ function htmlValueCard(cardValue) {
     return temp;
 }
 
-function appendDiv(parent, class, text) {
+function appendDiv(parent, className, text) {
     var tempName = document.createElement("div");
-    tempName.classList.add(class);
+    tempName.classList.add(className);
     tempName.innerHTML = text;
-    temp.appendChild(tempName);
+    parent.appendChild(tempName);
+}
+
+function isValueCardSelected() {
+    return document.getElementsByClassName("valueCard active").length != 0;
+}
+
+function clickButton() {
+    if (isValueCardSelected()) {
+        play();
+        switchButtonOff();
+    } else if (hash = -1) {
+        str();
+    }
+}
+
+function switchButtonOn() {
+    var button = document.getElementById("playButton")
+    button.disabled = false;
+    button.style.visibility = "visible"
+}
+
+function switchButtonOff() {
+    var button = document.getElementById("playButton")
+    button.disabled = true;
+    button.style.visibility = "hidden"
 }

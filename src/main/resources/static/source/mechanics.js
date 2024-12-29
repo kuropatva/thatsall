@@ -16,11 +16,38 @@ function sel(executor) {
 		executor.classList.remove("active");
 	}
 	else {
-		executor.classList.add("active");
+	    if (executor.classList.contains("valueCard")) {
+	        if (document.getElementsByClassName("valueCard active").length == 0) {
+		        executor.classList.add("active");
+		    }
+	    } else {
+		    if (calculateCurrentCost() + cardData[executor.id].cost <= gold) {
+		        executor.classList.add("active");
+		    }
+	    }
 	}
 }
 
-function addCard() {
-
+function calculateCurrentCost() {
+    var list = document.querySelectorAll(".active:not(.valueCard)");
+    var cost = 0;
+    for (var i = 0; i < list.length; i++) {
+        cost += cardData[list[i].id].cost;
+    }
+    return cost;
 }
 
+function play() {
+    var list = document.getElementsByClassName("active");
+    var value = null;
+    for (var i = 0; i < list.length; i++) {
+        var card = list[i];
+        if (card.classList.contains("valueCard")) {
+            value = card;
+        } else {
+            sendMessage("PLP " + card.id);
+        }
+    }
+    sendMessage("PLV " + value.id)
+
+}
