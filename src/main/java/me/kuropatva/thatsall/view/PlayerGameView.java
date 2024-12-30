@@ -15,8 +15,8 @@ public class PlayerGameView {
         return "{" +
                 simpleJsonEntry("gold", String.valueOf(player.gamePlayer().getGold())) +
                 simpleJsonEntry("name", player.username()) +
-                player.gamePlayer().playerHand().json() + ", " +
-                "\"players\": " + lobby.playersJson() +
+                player.gamePlayer().playerHand().toJson() + ", " +
+                "\"players\": " + lobby.toJson() +
                 "}";
     }
 

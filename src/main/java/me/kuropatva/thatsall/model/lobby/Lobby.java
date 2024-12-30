@@ -3,10 +3,11 @@ package me.kuropatva.thatsall.model.lobby;
 import me.kuropatva.thatsall.controller.GameSocketHandler;
 import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
+import me.kuropatva.thatsall.view.Jsonable;
 
 import java.util.HashMap;
 
-public class Lobby {
+public class Lobby implements Jsonable {
     private final HashMap<String, Player> players = new HashMap<>();
     private String password = null;
     private final GameSocketHandler gameSocketHandler = new GameSocketHandler(this);
@@ -50,7 +51,8 @@ public class Lobby {
         return gameSocketHandler;
     }
 
-    public String playersJson() {
+    @Override
+    public String toJson() {
         StringBuilder sb = new StringBuilder("[");
         players.values().forEach(p -> sb.append("{\"name\": \"").append(p.username()).append("\", \"points\": ").append(p.gamePlayer().getPoints()).append("}, "));
         int r = sb.lastIndexOf(",");

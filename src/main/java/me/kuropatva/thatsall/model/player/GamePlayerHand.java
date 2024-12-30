@@ -1,12 +1,13 @@
 package me.kuropatva.thatsall.model.player;
 
 import me.kuropatva.thatsall.model.cards.Card;
+import me.kuropatva.thatsall.view.Jsonable;
 
 import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Optional;
 
-public class GamePlayerHand {
+public class GamePlayerHand implements Jsonable {
 
     private final LinkedList<Card> powerCards = new LinkedList<>();
     private final LinkedList<Integer> valueCards = new LinkedList<>();
@@ -28,7 +29,8 @@ public class GamePlayerHand {
     }
 
     public Card getById(String id) {
-        return powerCards.stream().filter(c -> Objects.equals(c.getID(), id)).findFirst().get();
+        var optional = powerCards.stream().filter(c -> Objects.equals(c.getID(), id)).findFirst();
+        return optional.orElse(null);
     }
 
     public Optional<Integer> getValue(int id) {
@@ -43,7 +45,8 @@ public class GamePlayerHand {
         return powerCards.size() + valueCards.size();
     }
 
-    public String json() {
+    @Override
+    public String toJson() {
         return "\"value\": " + valueCards + ", \"power\": " + powerCards;
     }
 
