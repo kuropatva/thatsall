@@ -67,7 +67,9 @@ public class GamePlayer {
     }
 
     public void modifyPlayedValueCard(int value) {
-        if (value > 0 && value < 13) this.playedValueCard = value;
+        if (value < 1) this.playedValueCard = 1;
+        else if (value > 10) this.playedValueCard = 10;
+        else this.playedValueCard = value;
     }
 
     public void addPlayedPowerCard(Card c) {

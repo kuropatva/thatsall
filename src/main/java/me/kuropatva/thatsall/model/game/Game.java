@@ -95,9 +95,9 @@ public class Game {
             return;
         }
         // finish round
-        roundNumber++;
         finishRound();
         triggerEvent(EventType.ON_ROUND_FINISH, Event.statelessEvent());
+        roundNumber++;
         // update players
         updateAllPlayers();
     }
@@ -146,7 +146,7 @@ public class Game {
     }
 
     private void shuffleValueCards() {
-        for (int i = 1; i < 14; i++) {
+        for (int i = 1; i < 10; i++) {
             for (int j = 0; j < 4; j++) {
                 valueCard.push(i);
             }

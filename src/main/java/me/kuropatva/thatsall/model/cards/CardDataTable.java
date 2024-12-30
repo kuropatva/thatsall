@@ -14,7 +14,7 @@ import java.util.Objects;
 @Component
 public class CardDataTable {
 
-    private static final CardData NULL_CARD_DATA = new CardData(404, null, "Card not found", "For some reason data couldn't be loaded.");
+    public static final CardData NULL_CARD_DATA = new CardData(404, null, "Card not found", "For some reason data couldn't be loaded.");
     private static HashMap<String, CardData> map;
 
     static {
@@ -41,7 +41,7 @@ public class CardDataTable {
             }
             if (DataBuilder.buildCounter != 5) throw new Exception("cards.yml line number check failed.");
         } catch (Exception e) {
-            throw new RuntimeException("CardDataTable error. Please verify cards.yml correctness, crashed at line " + lineCounter + ".\n" + e);
+            throw new RuntimeException("CardDataTable error. Please verify cards.yml correctness. (cards.yml:" + lineCounter + ").\n" + e);
         }
     }
 

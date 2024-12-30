@@ -27,6 +27,14 @@ public class RandomPowerCardGenerator {
         }
     }
 
+    public static void verify() {
+        for (Class<? extends Card> card : cards) {
+            if (CardDataTable.get(card.getSimpleName()) == CardDataTable.NULL_CARD_DATA) {
+                throw new RuntimeException("Config.yml data missing for class " + card.getSimpleName() + " (cards.yml:1)");
+            }
+        }
+    }
+
     @SuppressWarnings({"all"})
     private static Class<? extends Card> toClass(String className) {
         try {

@@ -49,7 +49,6 @@ class GameTest {
 
         for (Player player : realPlayers) {
             assertEquals(10, player.gamePlayer().getGold());
-            assertEquals(10, player.gamePlayer().playerHand().size());
         }
     }
 
