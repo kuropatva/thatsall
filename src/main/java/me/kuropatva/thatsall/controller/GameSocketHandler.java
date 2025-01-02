@@ -50,7 +50,7 @@ public class GameSocketHandler {
     }
 
     public void finishRound(Player player, Player winner) {
-        player.sendMessage("FNR " + winner.username());
+        player.sendMessage("FNR " + (winner != null ? winner.username() : ""));
         refreshPlayer(player);
     }
 
