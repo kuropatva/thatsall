@@ -1,12 +1,14 @@
 package me.kuropatva.thatsall.controller.commands;
 
 import me.kuropatva.thatsall.controller.CommandArgs;
+import me.kuropatva.thatsall.model.game.Game;
 
 public class PlayValueCommand extends WebsocketCommand {
     @Override
     public void run(CommandArgs args) {
         var value = args.getArg(0);
         if (args.getPlayer().gamePlayer().isReady()) return;
+        if (args.lobby().game().state() == Game.State.LOBBY) return;
         int card;
         try {
             card = Integer.parseInt(value);
