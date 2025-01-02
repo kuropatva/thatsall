@@ -45,7 +45,7 @@ public class CardDataTable {
         }
     }
 
-    public static String json() {
+    public static String toJson() {
         StringBuilder sb = new StringBuilder("{");
         map.forEach((k, v) -> sb.append(v.toJson(k)).append(", "));
         var index = sb.lastIndexOf(", ");

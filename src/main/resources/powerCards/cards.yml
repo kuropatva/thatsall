@@ -21,7 +21,7 @@ MoreValue:
   name: More value!
   description: Next round get one additional permanent Value Card
 MorePower:
-  cost: 9
+  cost: 5
   events: ON_ROUND_FINISH
   name: More power!
   description: Next round get one additional permanent Power Card
@@ -50,3 +50,38 @@ MoneyGlitch:
   events: ON_ROUND_FINISH
   name: Money glitch
   description: Next round gain 1 gold for free
+AllIn:
+  cost: 10
+  events: ON_WIN, ON_DRAW
+  name: ALL IN!
+  description: If you win this round get 15 gold and 2 points.
+StepBack:
+  cost: 10
+  events: ON_ROUND_READY
+  name: Step back
+  description: Every player loses 2 points.
+SantaClaus:
+  cost: 6
+  events: ON_ROUND_READY
+  name: Santa claus
+  description: Every player gains 2 points.
+SheepFarm:
+  cost: 20
+  events: ON_ROUND_FINISH
+  name: Sheep farm
+  description: At the beginning of each round get 1 point.
+Ten:
+  cost: 10
+  events: ON_ROUND_FINISH
+  name: Ten
+  description: Get "10" Value Card.
+Reset:
+  cost: 20
+  events: ON_ROUND_FINISH
+  name: Reset button
+  description: At the beginning of this round lose all cards and gold. Then gain 5 gold, 5 value cards and 5 power cards.
+Sevens:
+  cost: 21
+  events: ON_WIN
+  name: 777
+  description: Whoever WINS a round using a "7" Value Card will receive three "7" Value Cards and 17 gold.

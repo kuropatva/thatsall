@@ -45,6 +45,19 @@ public class GamePlayerHand implements Jsonable {
         return powerCards.size() + valueCards.size();
     }
 
+    public void clearPower() {
+        powerCards.clear();
+    }
+
+    public void clearValue() {
+        valueCards.clear();
+    }
+
+    public void clearAll() {
+        clearValue();
+        clearPower();
+    }
+
     @Override
     public String toJson() {
         return "\"value\": " + valueCards + ", \"power\": " + powerCards;

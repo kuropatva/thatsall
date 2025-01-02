@@ -61,7 +61,7 @@ public class Game {
                 card.setOwner(player);
                 eventRegister().register(card, card.getEvents());
             });
-            triggerEvent(EventType.ON_ROUND_READY, Event.statelessEvent(player));
+            triggerEvent(EventType.ON_PLAYER_READY, Event.statelessEvent(player));
             if (--playersNotReady <= 0) endRound();
         }
     }
@@ -194,6 +194,10 @@ public class Game {
         var event = Event.builder().value("INT_VALUE", new EventInt(card)).build();
         triggerEvent(EventType.ON_VALUE_CARD_DEAL, event);
         player.gamePlayer().playerHand().add((Integer) event.getValue("INT_VALUE").get());
+    }
+
+    public Lobby lobby() {
+        return lobby;
     }
 
     public enum State {

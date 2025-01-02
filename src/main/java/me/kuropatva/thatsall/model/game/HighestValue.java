@@ -2,6 +2,7 @@ package me.kuropatva.thatsall.model.game;
 
 import me.kuropatva.thatsall.model.player.Player;
 
+// data structure to determine biggest (player, int) pair sorted by int, null when tied
 public class HighestValue {
 
     private int highestValue = 0;

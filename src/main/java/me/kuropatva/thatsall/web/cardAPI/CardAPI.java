@@ -35,7 +35,7 @@ public class CardAPI {
 
     @GetMapping("all.js")
     public String getAll() {
-        if (all == null) all = CardDataTable.json();
+        if (all == null) all = CardDataTable.toJson();
         return "const cardData = " + all;
     }
 }
