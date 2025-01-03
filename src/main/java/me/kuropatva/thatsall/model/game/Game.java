@@ -25,7 +25,7 @@ public class Game {
     private final static int PLAYER_ROUND_POWER_CARDS = 1;
     private final static int GOLD_PER_ROUND = 5;
     private final static int GOLD_AT_START = 10;
-    private final static int WIN_POINTS = 20;
+    private final static int WIN_POINTS = 30;
 
     private final Lobby lobby;
     private final EventRegister register = new EventRegister();
