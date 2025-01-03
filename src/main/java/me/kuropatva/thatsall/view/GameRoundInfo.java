@@ -15,11 +15,11 @@ public class GameRoundInfo {
     }
 
     public void logValueCard(Player player, int value) {
-        log(player.username() + " has played <b>'" + value + "'</b> Value Card");
+        log("Player " + bold(player.username()) + " has played '" + bold(String.valueOf(value)) + "' Value Card");
     }
 
     public void logPowerCard(Player player, Card card) {
-        log(player.username() + " has played <b>" + card.getName() + "</b> (" + card.getDescription() + ")");
+        log("Player " + bold(player.username()) + " has played " + bold(card.getName()) + " (" + card.getDescription() + ")");
     }
 
     public void flush(Game game) {
@@ -28,5 +28,9 @@ public class GameRoundInfo {
             messages.forEach(m -> handler.message(player, m));
         }
         messages.clear();
+    }
+
+    private String bold(String s) {
+        return "<b>" + s + "</b>";
     }
 }
