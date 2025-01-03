@@ -9,7 +9,7 @@ PlusOne:
   cost: 2
   events: ON_WIN
   name: +1
-  description: Next winner gets one additional 1 point
+  description: Next winner gets one additional point
 Drawer:
   cost: 3
   events: ON_DRAW

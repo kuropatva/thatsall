@@ -1,6 +1,8 @@
 const socket = new WebSocket('/socket');
 var hash = -1;
 var gold = 0;
+var playersData = "";
+var test = "";
 
 const goldCount = document.getElementById("goldCount");
 const playfield = document.getElementById("playfield");
@@ -45,23 +47,32 @@ function handleMessage(message) {
             ref(JSON.parse(message.substring(space + 1)));
             break;
         case "ERR":
-            alert("game errror" + message.substring(space + 1));
+            listEntryAlert("Error:  " + message.substring(4));
             break;
         case "FNR":
-            alert("Round won by " + message.substring(space + 1));
+            var winner = message.substring(4);
+            if (winner == "") {
+                listEntryAlert("Round finished with a tie");
+            } else {
+                listEntryAlert("Round won by player " + winner);
+            }
+            break;
+        case "MSG":
+            listEntry(message.substring(4));
             break;
         case "FNG":
-            alert("Game won by " + message.substring(space + 1));
+            alert("Game won by " + message.substring(4));
             break;
     }
 }
 
 function ref(json) {
     console.log(json);
-    goldCount.innerHTML = json.gold;
+    goldCount.innerHTML = "Gold: " + json.gold;
     gold = json.gold;
     switchButtonOn();
-    playfield.innerHTML = JSON.stringify(json.players);
+    playersData = json.players;
+    points();
     var tempCardList = document.createElement("div");
     for (var i in json.value) {
         var cardValue = json.value[i];
@@ -77,10 +88,6 @@ function ref(json) {
     }
     tempCardList.id = "cardlist";
     document.getElementById("cardlist").replaceWith(tempCardList);
-}
-
-function testUPT() {
-    setInterval(() => {hash = -1; upt();},1000);
 }
 
 function htmlPowerCard(id, data) {
@@ -123,7 +130,7 @@ function clickButton() {
     if (isValueCardSelected()) {
         play();
         switchButtonOff();
-    } else if (hash = -1) {
+    } else if (hash == -1) {
         str();
     }
 }

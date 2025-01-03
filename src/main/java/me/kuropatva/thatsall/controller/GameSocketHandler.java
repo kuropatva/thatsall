@@ -45,7 +45,7 @@ public class GameSocketHandler {
         player.sendMessage("ERR " + message);
     }
 
-    private void message(Player player, String message) {
+    public void message(Player player, String message) {
         player.sendMessage("MSG " + message);
     }
 

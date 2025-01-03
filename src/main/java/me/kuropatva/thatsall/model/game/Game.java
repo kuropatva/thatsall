@@ -10,6 +10,7 @@ import me.kuropatva.thatsall.model.events.values.EventInt;
 import me.kuropatva.thatsall.model.lobby.Lobby;
 import me.kuropatva.thatsall.model.lobby.LobbyManager;
 import me.kuropatva.thatsall.model.player.Player;
+import me.kuropatva.thatsall.view.GameRoundInfo;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -33,6 +34,7 @@ public class Game {
     private final RandomPowerCardGenerator randomPowerCardGenerator = new RandomPowerCardGenerator();
     private int playersNotReady = 0;
     private int roundNumber = 0;
+    private final GameRoundInfo roundInfo = new GameRoundInfo();
 
     public Game(Lobby lobby) {
         this.lobby = lobby;
@@ -43,7 +45,7 @@ public class Game {
         return register;
     }
 
-    public boolean start() {
+    public synchronized boolean start() {
         if (lobby.playerSize() < 2) return false;
         if (state != State.LOBBY) return false;
         state = State.ROUND;
@@ -54,14 +56,15 @@ public class Game {
         return true;
     }
 
-    public void ready(Player player) {
+    public synchronized void ready(Player player) {
         if (!player.gamePlayer().isReady()) {
             player.gamePlayer().setReady(true);
+            triggerEvent(EventType.ON_PLAYER_READY, Event.statelessEvent(player));
             player.gamePlayer().getPlayedPowerCards().forEach(card -> {
+                roundInfo.logPowerCard(player, card);
                 card.setOwner(player);
                 eventRegister().register(card, card.getEvents());
             });
-            triggerEvent(EventType.ON_PLAYER_READY, Event.statelessEvent(player));
             if (--playersNotReady <= 0) endRound();
         }
     }
@@ -83,9 +86,6 @@ public class Game {
         } else { // draw
             triggerEvent(EventType.ON_DRAW, Event.statelessEvent());
         }
-        for (Player player : lobby.players()) {
-            lobby.getGameSocketHandler().finishRound(player, winner);
-        }
 
         //check game winner
         var highestPoints = new HighestValue();
@@ -96,6 +96,9 @@ public class Game {
         }
         // finish round
         finishRound();
+        for (Player player : lobby.players()) {
+            lobby.getGameSocketHandler().finishRound(player, winner);
+        }
         triggerEvent(EventType.ON_ROUND_FINISH, Event.statelessEvent());
         roundNumber++;
         // update players
@@ -114,11 +117,15 @@ public class Game {
                 dealPowerCard(player);
             }
         }
+        roundInfo.flush(this);
     }
 
     private HighestValue getRoundWinner() {
         var highestScore = new HighestValue();
-        lobby.players().forEach(p -> highestScore.add(p.gamePlayer().getPlayedValueCard(), p));
+        lobby.players().forEach(p -> {
+            highestScore.add(p.gamePlayer().getPlayedValueCard(), p);
+            roundInfo.logValueCard(p, p.gamePlayer().getPlayedValueCard());
+        });
         return highestScore;
     }
 
@@ -174,6 +181,10 @@ public class Game {
 
     public int getRoundNumber() {
         return roundNumber;
+    }
+
+    public GameRoundInfo getRoundInfo() {
+        return roundInfo;
     }
 
     public void triggerEvent(EventType evenType, Event event) {

@@ -49,5 +49,28 @@ function play() {
         }
     }
     sendMessage("PLV " + value.id)
+}
 
+function listEntry(text) {
+    var list = document.getElementById("listbox");
+    var temp = document.createElement("div");
+    temp.classList.add("list-item");
+    temp.innerHTML = text;
+    list.insertBefore(temp, list.firstChild);
+}
+
+function listEntryAlert(text) {
+    listEntry("<div style=\"color: pink\">" + text + "</div>");
+}
+
+function points() {
+    if (playersData == "") {
+        text = "No information to show."
+    } else {
+        var text = "Points: "
+        for (var i = 0; i < playersData.length; i++) {
+            text += "<b>" + playersData[i].name + "</b>: " + playersData[i].points + " ";
+        }
+    }
+    document.getElementById("points").innerHTML = text;
 }
