@@ -22,7 +22,6 @@ public class LobbyGarbageCollector implements Runnable {
     }
 
     @Override
-    @SuppressWarnings("logging")
     public void run() {
         while (!Thread.interrupted()) {
             try {
