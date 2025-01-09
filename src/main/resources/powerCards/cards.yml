@@ -1,0 +1,87 @@
+# events:    ON_ROUND_READY, ON_WIN, ON_DRAW, ON_VALUE_CARD_DEAL, ON_POWER_CARD_DEAL, ON_PLAYER_READY, ON_ROUND_FINISH
+# Card format:
+# ClassName:
+#   cost: 1
+#   events: ON_WIN, ON_DRAW
+#   name: Display card name
+#   description: Display card desc
+PlusOne:
+  cost: 2
+  events: ON_WIN
+  name: +1
+  description: Next winner gets one additional point
+Drawer:
+  cost: 3
+  events: ON_DRAW
+  name: Drawer
+  description: On next draw you get 2 points
+MoreValue:
+  cost: 7
+  events: ON_ROUND_FINISH
+  name: More value!
+  description: Next round get one additional permanent Value Card
+MorePower:
+  cost: 5
+  events: ON_ROUND_FINISH
+  name: More power!
+  description: Next round get one additional permanent Power Card
+LoserPoint:
+  cost: 3
+  events: ON_WIN, ON_DRAW
+  name: Lose to win?
+  description: If you lose this round get one point
+HedgeFund:
+  cost: 10
+  events: ON_ROUND_FINISH
+  name: Hedge Fund (Trance)
+  description: Every round get 2 additional gold
+Promotion:
+  cost: 6
+  events: ON_PLAYER_READY
+  name: Promotion!
+  description: Value card this round will transform into card worth 2 more
+Mystery:
+  cost: 5
+  events: ON_ROUND_FINISH
+  name: Mystery
+  description: Next round you will play random Power card (from whole pool) for free
+MoneyGlitch:
+  cost: 0
+  events: ON_ROUND_FINISH
+  name: Money glitch
+  description: Next round gain 1 gold for free
+AllIn:
+  cost: 10
+  events: ON_WIN, ON_DRAW
+  name: ALL IN!
+  description: If you win this round get 15 gold and 2 points.
+StepBack:
+  cost: 10
+  events: ON_ROUND_READY
+  name: Step back
+  description: Every player loses 2 points.
+SantaClaus:
+  cost: 6
+  events: ON_ROUND_READY
+  name: Santa claus
+  description: Every player gains 2 points.
+SheepFarm:
+  cost: 20
+  events: ON_ROUND_FINISH
+  name: Sheep farm
+  description: At the beginning of each round get 1 point.
+Ten:
+  cost: 10
+  events: ON_ROUND_FINISH
+  name: Ten
+  description: Get "10" Value Card.
+Reset:
+  cost: 20
+  events: ON_ROUND_FINISH
+  name: Reset button
+  description: At the beginning of this round lose all cards and gold. Then gain 5 gold, 5 value cards and 5 power cards.
+Sevens:
+  cost: 21
+  events: ON_WIN
+  name: 777
+  description: Whoever WINS a round using a "7" Value Card will receive three "7" Value Cards and 17 gold.

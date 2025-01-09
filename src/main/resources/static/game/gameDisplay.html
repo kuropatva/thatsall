@@ -1,0 +1,24 @@
+<html>
+<title>That's all Game</title>
+<head>
+    <link href="/source/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="playerData" id="playerData"></div>
+<div class="playfield" id="playfield">
+    <div class="list-box" id="listbox">
+    </div>
+</div>
+<div id="points"></div>
+<div id="goldCount"></div>
+<button class="playButton" id="playButton" onclick="clickButton()">Zagraj</button>
+<div class="cardlist" id="cardlist"></div>
+
+<script crossorigin="anonymous"
+        integrity="sha384-OoIbkvzsFFQAG88r+IqMAjyOtYDPGO0cqK5HF5Uosdy/zUEGySeAzytENMDynREd"
+        src="https://cdn.socket.io/4.8.0/socket.io.min.js"></script>
+<script src="/source/mechanics.js"></script>
+<script src="/source/socket.js"></script>
+<script src="/cardapi/all.js"></script>
+</body>
+</html>
