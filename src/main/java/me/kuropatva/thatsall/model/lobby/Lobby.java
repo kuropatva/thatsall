@@ -5,6 +5,7 @@ import me.kuropatva.thatsall.model.game.Game;
 import me.kuropatva.thatsall.model.player.Player;
 import me.kuropatva.thatsall.view.Jsonable;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class Lobby implements Jsonable {
@@ -12,6 +13,7 @@ public class Lobby implements Jsonable {
     private String password = null;
     private final GameSocketHandler gameSocketHandler = new GameSocketHandler(this);
     private final Game game = new Game(this);
+    private volatile LocalDateTime lastUpdate = LocalDateTime.now();
 
     public void setPassword(String password) {
         this.password = password;
@@ -40,6 +42,7 @@ public class Lobby implements Jsonable {
 
     public void addPlayer(Player player) {
         if (game.state() != Game.State.LOBBY) return;
+        updateInactive();
         players.put(player.username(), player);
     }
 
@@ -49,6 +52,14 @@ public class Lobby implements Jsonable {
 
     public GameSocketHandler getGameSocketHandler() {
         return gameSocketHandler;
+    }
+
+    public void updateInactive() {
+        lastUpdate = LocalDateTime.now();
+    }
+
+    public LocalDateTime getInactiveTime() {
+        return lastUpdate;
     }
 
     @Override
@@ -63,6 +74,7 @@ public class Lobby implements Jsonable {
 
     public void close() {
         players.forEach((ignored, p) -> {
+            p.sendMessage("Lobby has been closed.");
             p.setLobby(null);
             p.clearSessions();
         });

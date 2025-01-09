@@ -46,6 +46,7 @@ public class Game {
     }
 
     public synchronized boolean start() {
+        lobby.updateInactive();
         if (lobby.playerSize() < 2) return false;
         if (state != State.LOBBY) return false;
         state = State.ROUND;
@@ -57,6 +58,7 @@ public class Game {
     }
 
     public synchronized void ready(Player player) {
+        lobby.updateInactive();
         if (!player.gamePlayer().isReady()) {
             player.gamePlayer().setReady(true);
             triggerEvent(EventType.ON_PLAYER_READY, Event.statelessEvent(player));

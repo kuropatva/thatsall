@@ -31,6 +31,6 @@ class LobbyManagerTest {
         assertEquals(1, a.playerSize());
         LobbyManager.close(a);
         assertEquals(0, a.playerSize());
-        assertDoesNotThrow(() -> LobbyManager.close(null));
+        assertDoesNotThrow(() -> LobbyManager.close((Lobby) null));
     }
 }

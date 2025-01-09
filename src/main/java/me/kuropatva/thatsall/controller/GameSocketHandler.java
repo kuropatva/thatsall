@@ -22,7 +22,6 @@ public class GameSocketHandler {
     }
 
     public void handleIncoming(Player player, String message) {
-        System.out.println(player.username() + ": " + message);
         var cmd = new CommandArgs(lobby, player, message);
         switch (cmd.getCommandName()) {
             case "UPT" -> refreshPlayer(player);
