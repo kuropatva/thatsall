@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpSession;
 import me.kuropatva.thatsall.model.lobby.Lobby;
 import me.kuropatva.thatsall.model.lobby.LobbyIDGenerator;
 import me.kuropatva.thatsall.model.lobby.LobbyManager;
-import me.kuropatva.thatsall.model.player.PlayerFactory;
+import me.kuropatva.thatsall.model.player.PlayerBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -41,11 +41,11 @@ public class LoginController {
             gameID = LobbyIDGenerator.get();
             lobby = LobbyManager.newGame(gameID);
             if (!gameCode.isBlank()) lobby.setPassword(gameCode);
-            var player = PlayerFactory.get(username, passcode).game(lobby).build();
+            var player = PlayerBuilder.get(username, passcode).game(lobby).build();
             lobby.addPlayer(player);
             success = true;
         } else if (!lobby.hasPlayerName(username)) {
-            var player = PlayerFactory.get(username, passcode).game(lobby).build();
+            var player = PlayerBuilder.get(username, passcode).game(lobby).build();
             lobby.addPlayer(player);
             if (lobby.authorize(gameCode)) success = true;
         } else {

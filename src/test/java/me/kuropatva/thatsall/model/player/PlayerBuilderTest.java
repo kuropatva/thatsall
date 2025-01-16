@@ -5,9 +5,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verifyNoInteractions;
 
-class PlayerFactoryTest {
+class PlayerBuilderTest {
 
     private static final String TEST_USERNAME = "testUser";
     private static final String TEST_PASSCODE = "1234";
@@ -21,7 +22,7 @@ class PlayerFactoryTest {
     @Test
     void testGet() {
         // Act
-        PlayerFactory factory = PlayerFactory.get(TEST_USERNAME, TEST_PASSCODE);
+        PlayerBuilder factory = PlayerBuilder.get(TEST_USERNAME, TEST_PASSCODE);
 
         // Assert
         assertNotNull(factory, "Factory instance should not be null");
@@ -32,7 +33,7 @@ class PlayerFactoryTest {
     @Test
     void testGame() {
         // Arrange
-        PlayerFactory factory = PlayerFactory.get(TEST_USERNAME, TEST_PASSCODE);
+        PlayerBuilder factory = PlayerBuilder.get(TEST_USERNAME, TEST_PASSCODE);
 
         // Act
         factory.game(mockLobby);
@@ -44,7 +45,7 @@ class PlayerFactoryTest {
     @Test
     void testBuildWithLobby() {
         // Arrange
-        PlayerFactory factory = PlayerFactory.get(TEST_USERNAME, TEST_PASSCODE).game(mockLobby);
+        PlayerBuilder factory = PlayerBuilder.get(TEST_USERNAME, TEST_PASSCODE).game(mockLobby);
 
         // Act
         Player player = factory.build();
@@ -59,7 +60,7 @@ class PlayerFactoryTest {
     @Test
     void testBuildWithoutLobby() {
         // Arrange
-        PlayerFactory factory = PlayerFactory.get(TEST_USERNAME, TEST_PASSCODE);
+        PlayerBuilder factory = PlayerBuilder.get(TEST_USERNAME, TEST_PASSCODE);
 
         // Act
         Player player = factory.build();
@@ -76,8 +77,8 @@ class PlayerFactoryTest {
     @Test
     void testMultipleInstances() {
         // Arrange
-        PlayerFactory factory1 = PlayerFactory.get("User1", "Pass1").game(mockLobby);
-        PlayerFactory factory2 = PlayerFactory.get("User2", "Pass2");
+        PlayerBuilder factory1 = PlayerBuilder.get("User1", "Pass1").game(mockLobby);
+        PlayerBuilder factory2 = PlayerBuilder.get("User2", "Pass2");
 
         // Act
         Player player1 = factory1.build();
@@ -97,7 +98,7 @@ class PlayerFactoryTest {
     @Test
     void testNullLobby() {
         // Arrange
-        PlayerFactory factory = PlayerFactory.get(TEST_USERNAME, TEST_PASSCODE).game(null);
+        PlayerBuilder factory = PlayerBuilder.get(TEST_USERNAME, TEST_PASSCODE).game(null);
 
         // Act
         Player player = factory.build();

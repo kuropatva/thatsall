@@ -1,7 +1,7 @@
 package me.kuropatva.thatsall.model.game;
 
 import me.kuropatva.thatsall.model.player.Player;
-import me.kuropatva.thatsall.model.player.PlayerFactory;
+import me.kuropatva.thatsall.model.player.PlayerBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,9 +18,9 @@ public class HighestValueTest {
     @BeforeEach
     public void setUp() {
         highestValue = new HighestValue();
-        player1 = PlayerFactory.get("Player1", "a").build();
-        player2 = PlayerFactory.get("Player2", "a").build();
-        player3 = PlayerFactory.get("Player3", "a").build();
+        player1 = PlayerBuilder.get("Player1", "a").build();
+        player2 = PlayerBuilder.get("Player2", "a").build();
+        player3 = PlayerBuilder.get("Player3", "a").build();
     }
 
     @Test

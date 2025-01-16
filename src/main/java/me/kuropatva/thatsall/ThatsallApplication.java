@@ -10,7 +10,7 @@ public class ThatsallApplication {
 
 	public static void main(String[] args) {
 		RandomPowerCardGenerator.verify();
-		new Thread(new LobbyGarbageCollector()).start();
+		Thread.ofPlatform().start(new LobbyGarbageCollector());
 		SpringApplication.run(ThatsallApplication.class, args);
 	}
 

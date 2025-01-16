@@ -72,7 +72,7 @@ public class Lobby implements Jsonable {
         return sb.toString();
     }
 
-    public void close() {
+    public synchronized void close() {
         players.forEach((ignored, p) -> {
             p.sendMessage("Lobby has been closed.");
             p.setLobby(null);
