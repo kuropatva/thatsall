@@ -9,13 +9,13 @@ import java.util.Random;
 
 public class RandomPowerCardGenerator {
 
-    private final static String CARDS_PACKAGE_SLASH = "me/kuropatva/thatsall/model/cards/concretcards";
-    private final static String CARDS_PACKAGE_DOT = (CARDS_PACKAGE_SLASH + '.').replaceAll("/", ".");
-    private final static List<? extends Class<? extends Card>> cards = getClasses();
+    private final static String CARDS_PACKAGE_SLASH = "/me/kuropatva/thatsall/model/cards/concretcards";
+    private final static String CARDS_PACKAGE_DOT = "me.kuropatva.thatsall.model.cards.concretcards.";
+    private static final List<? extends Class<? extends Card>> cards = getClasses();
     private final Random random = new Random();
 
     private static List<? extends Class<? extends Card>> getClasses() {
-        try (var input = ClassLoader.getSystemClassLoader().getResourceAsStream(CARDS_PACKAGE_SLASH)) {
+        try (var input = RandomPowerCardGenerator.class.getResourceAsStream(CARDS_PACKAGE_SLASH)) {
             assert input != null;
             var reader = new BufferedReader(new InputStreamReader(input));
             return (reader.lines()
