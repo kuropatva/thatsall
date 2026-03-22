@@ -1,29 +1,16 @@
-# "That's all" multiplayer web card game
-Project developed for Jagiellonian University "Design Patterns" laboratory.
+# "That's All" – multiplayer web card game
 
-This is a game, as you can guess by the title.
-A game in which each round players chose to play single "value" card (corresponding to classical cards) and any number (
-limited by gold) of "power" cards, which influence game rules. Each round player with higher value card wins (or there's
-a draw). The goal is to get above a point limit.
+**That's All** is a browser-based, multiplayer card game. In each round, players play a single **value card** (like in a classic card deck) and optionally any number of **power cards**, limited by gold, which modify the game rules. The player with the highest value card wins the round, or the round ends in a draw. The goal is to reach the target point limit first.
 
+This game is designed for LAN/private servers, so security features are minimal - mostly aimed at for fun trolling.
 
+The main focus of the project was the use of classic Design Patterns, so the use of external libraries and advanced framework features was intentionally limited.  
+This project was developed as part of the "Design Patterns" laboratory at the Jagiellonian University.
 
-This game is designed for LAN/private servers, so security features are minimal and mostly aimed at for fun trolling. 
-
-As the main focus of that project was use of classic Design Patterns, I heavily limited use of external libraries and
-framework features.
-
-## How to play?
-As of now game is still in development, so sadly you can't.
-
-## Rules
-
-TBA
-
-## Technologies:
-Backend: Java 21, Spring Boot (3.4.0)\
-Frontend: HTML, JS, CSS\
+## Technologies
+- Backend: Java 21, Spring Boot 3.4.0
+- Frontend: HTML, CSS, JavaScript  
 (Terrible at frontend btw)
 
-## Design choices:
-[PRESENTATION](reports/PRESENTATION.md)
+## Design Choices
+For detailed explanations of design decisions and applied patterns, see the [presentation](reports/PRESENTATION.md).
